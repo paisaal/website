@@ -11,6 +11,17 @@
     </small>
 </footer>
 
+<script>
+    // Cek apakah halaman saat ini adalah halaman beranda
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+      // Tampilkan footer
+      document.querySelector('.footer').style.display = 'block';
+    } else {
+      // Sembunyikan footer
+      document.querySelector('.footer').style.display = 'none';
+    }
+  </script>
+
 {{- if .Site.Params.goToTop -}}
 <a href="#" title="Go to top" id="totop">
     {{ partial "svgs/arrowUp.svg" (dict "height" 100 "width" 100) . }}
