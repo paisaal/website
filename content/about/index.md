@@ -10,4 +10,4 @@ An IT Engineer from Bogor, Indonesia. Not as big, but also not as busy. I am an 
 
 Blogging about my experiences, to help others, and to keep track of what I’ve done.
 
-Find me on GitHub, Twitter or Instagram.
+Find me on GitHub, or Instagram.
