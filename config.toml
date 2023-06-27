@@ -93,9 +93,5 @@ name = "github"
 url = "https://github.com/paisaal"
 
 [[params.socialIcons]]
-name = "twitter"
-url = "https://twitter.com"
-
-[[params.socialIcons]]
 name = "Instagram"
 url = "https://instagram.com/pa.isaal"
