@@ -69,7 +69,7 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
   # The file `custom.js` is loaded on each page (before body tag ends).
 
 [params.author]
-  avatar = "avatar-crop.png" # put the file in assets folder; also ensure that image has same height and width
+  avatar = "avatar-crop-min.jpg" # put the file in assets folder; also ensure that image has same height and width
   # Note: image is not rendered if the resource(avatar image) is not found. No error is displayed.
   intro = "Muhammad Nurfaisal"
   name = "Muhammad Nurfaisal"
@@ -99,4 +99,3 @@ url = "https://twitter.com"
 [[params.socialIcons]]
 name = "Instagram"
 url = "https://instagram.com/pa.isaal"
-
