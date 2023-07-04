@@ -19,7 +19,7 @@ While splitting an application into multiple services is definitely great, it co
 - You also need to install Docker.
 
 # Step 1: Installing Docker Compose
-We will be downloading the latest stable version of Docker Compose from its [official GitHub repository](https://github.com/docker/compose). You can find out the latest version from the releases page, at the time of writing this tutorial, the latest version is 2.19.1.
+We will be downloading the latest stable version of Docker Compose from its [official GitHub repository](https://github.com/docker/compose). You can find out the latest version from the releases page, at the time of writing this tutorial, the latest version is 2.18.1.
 
 First, log in to your Ubuntu server with the non-root sudo user and enter the following command. It downloads the latest release (2.18.1). This makes it globally accessible as docker-compose:
 ```html
