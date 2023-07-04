@@ -18,42 +18,42 @@ Before you start installing Docker, you need to set up its repository. After tha
 
 - First, you need to update the apt package index and install a few packages. These packages will allow apt to use a repository over HTTPS:
 {{< highlight html >}}
-sudo apt-get update
+sudo apt-get update  
  
-sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
+sudo apt-get install \  
+    apt-transport-https \  
+    ca-certificates \  
+    curl \  
+    gnupg-agent \  
+    software-properties-common  
 {{< /highlight >}}
 
 - Then, you need to add GPG key of the official Docker repository to your system:
 {{< highlight html >}}
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -  
 {{< /highlight >}}
 
 - You can verify the fingerprint by using the following command:
 {{< highlight html >}}
-sudo apt-key fingerprint 0EBFCD88
+sudo apt-key fingerprint 0EBFCD88  
 {{< /highlight >}}
 
 - Next, you go ahead and add the official repository using this command:
 {{< highlight html >}}
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"  
 {{< /highlight >}}
 
 - Finally, you can install the Docker engine. The following commands first update the apt package index and then install the latest version of Docker engine and contained:
 {{< highlight html >}}
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get update  
+sudo apt-get install docker-ce docker-ce-cli containerd.io  
 {{< /highlight >}}
 
 <br>
 
 Docker is now installed and it’s daemon process has started. You can check the running status of Docker using the command:
 ```html
-sudo systemctl status docker
+sudo systemctl status docker  
 ```
 
 ![docker](./Images/status.png)
@@ -65,7 +65,7 @@ Currently, the Docker command can only be run by a root user or a user in the �
 
 You can add your user to the Docker group using the following command:
 ```html
-sudo usermod -aG docker (your_username)
+sudo usermod -aG docker (your_username)  
 ```
 
 <br>
@@ -73,7 +73,7 @@ sudo usermod -aG docker (your_username)
 # Step 3: Using the Docker Command
 You can find the syntax of Docker command by just executing it:
 ```html
-docker
+docker  
 ```
 
 This will show you the usage and possible options and arguments you can use. For example:
@@ -81,7 +81,7 @@ This will show you the usage and possible options and arguments you can use. For
 
 You can see the available options for a specific sub-command using:
 ```html
-docker docker-subcommand --help
+docker docker-subcommand --help  
 ```
 
 <br>
@@ -90,7 +90,7 @@ docker docker-subcommand --help
 Docker containers are built using Docker images. Docker Hub is an official Docker registry. Anyone can register and host their Docker images there.
 To test the access to Docker hub, try this command:
 ```html
-sudo docker run hello-world
+sudo docker run hello-world  
 ```
 ![docker](./Images/hello-world.png)
 
@@ -98,12 +98,12 @@ It mentions that Docker was unable to find the image locally, so it pulled the i
 
 You can search for more images using the ‘docker search’ command. For example, you can search for Ubuntu operating system image by:
 ```html
-docker search ubuntu
+docker search ubuntu  
 ```
 
 It will search Docker hub for all images that contain ‘ubuntu’ and return the list to us. You can try pulling Ubuntu image using this command:
 ```html
-docker pull ubuntu
+docker pull ubuntu  
 ```
 ![docker](./Images/pull.png)
 
@@ -111,7 +111,7 @@ Now that the image has been downloaded, you can run a container with this image 
 
 You can see the Docker images stored on your server by using the command:
 ```html
-docker images
+docker images  
 ```
 ![docker](./Images/images.png)
 
@@ -124,34 +124,34 @@ When we ran the hello-world container, it ran, executed some commands to display
 
 You can run the ubuntu container with “-it” which gives you an interactive shell access to the container.
 ```html
-docker run -it ubuntu
+docker run -it ubuntu  
 ```
 
 The command prompt will change to look a little different based on the container you are in.
 ```html
-Output:
+Output:  
 
-root@3f14d58425b0:/#
+root@3f14d58425b0:/#  
 ```
 
 “3f14d58425b0” in the above shell is the container ID of the container which can be used to remove the container, if required.
 
 Now that you are in the container, you can run various commands here just like you would do on a server. Let’s for example try to update your package database using this command:
 ```html
-root@3f14d58425b0:/# apt update
+root@3f14d58425b0:/# apt update  
 ```
 
 You can also install any application that you want to run. Let’s take Nginx, for instance. You can use the following command to do that:
 ```html
-root@3f14d58425b0:/# apt install nginx
+root@3f14d58425b0:/# apt install nginx  
 ```
 
 You can run the Nginx service and check its status by means of these command lines:
 ```html
-root@3f14d58425b0:/# service nginx start
- * Starting nginx nginx                                           [ OK ]
-root@3f14d58425b0:/# service nginx status
- * nginx is running
+root@3f14d58425b0:/# service nginx start  
+ * Starting nginx nginx                                           [ OK ]  
+root@3f14d58425b0:/# service nginx status  
+ * nginx is running  
 ```
 
 Any changes that you make to the container are only applied inside that container. Those won’t be saved to the images. In the following steps, you will learn how to save those changes to create new images. Please type **exit** to exit the container.
@@ -163,31 +163,31 @@ In this part, you will learn to manage containers in Docker.
 
 Once you start using Docker actively, you would generally have lots of containers and images on your system. You can view active ones using this command:
 ```html
-docker ps
+docker ps  
 ```
 ![docker](./Images/ps.png)
 
 But we did run two containers, “ubuntu” and “hello-world”. Where are they?
 Since they are no longer running, you can’t see them here. However, you can get a list of all the containers – inactive and active – using the following command:
 ```html
-docker ps -a
+docker ps -a  
 ```
 ![docker](./Images/ps%20-a.png)
 
 You can start a stopped container using the command ‘docker start’ followed by container ID or container’s name. Let’s try running the Ubuntu container:
 ```html
-docker start 3f14d58425b0
+docker start 3f14d58425b0  
 ```
 ![docker](./Images/start%20container.png)
 
 To stop a container, use the command ‘docker stop’ followed by the container ID or container’s name.
 ```html
-docker stop youthful_mclaren
+docker stop youthful_mclaren  
 ```
 
 You can remove a container once your work is complete using the command ‘docker remove’.
 ```html
-docker remove youthful_mclaren
+docker remove youthful_mclaren  
 ```
 
 <br>
@@ -197,7 +197,7 @@ Just like a virtual machine, you can make changes to the container such as remov
 
 However, you can save the state of the container by creating a new Docker image out of it. Earlier, we installed an Nginx application on top of the Ubuntu container. You could save that image so that you don’t have to repeat the steps again. After making the changes, you can run a command of this format:
 ```html
-docker commit -m "Change" -a "Author's Name" container_id repository/imageName
+docker commit -m "Change" -a "Author's Name" container_id repository/imageName   
 ```
 
 Description:
@@ -210,7 +210,7 @@ Description:
 
 Example:
 ```html
-docker commit -m "ubuntu with nginx" -a "your-username" 3f14d58425b0 your-username/ubuntu-nginx
+docker commit -m "ubuntu with nginx" -a "your-username" 3f14d58425b0 your-username/ubuntu-nginx   
 ```
 
 Here is how you can list the Docker images and see the saved Docker image:
@@ -225,13 +225,13 @@ Now that you have created an image, let’s push it to the Docker repository so 
 
 To push an image, you first need to login with the username:
 ```html
-docker login -u <<userName>>
+docker login -u <<userName>>  
 ```
 ![docker](./Images/login%20hub.png)
 
 You can push the image to the Docker hub repository using the command:
 ```html
-docker push <<dockerHub-username>>/ubuntu-nginx
+docker push <<dockerHub-username>>/ubuntu-nginx  
 ```
 ![docker](./Images/push.png)
 
