@@ -36,20 +36,16 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
   [[menu.main]]
     # The page reference (pageRef) is useful for menu highlighting
     # When pageRef is set, setting `url` is optional; it will be used as a fallback if the page is not found.
-    #pageRef="About"
-    #name = 'About'
-    #url = '/'
-    #weight = 10
   [[menu.main]]
     pageRef="about"
     name = 'About'
     url = '/about/'
-    weight = 20
+    weight = 10
   [[menu.main]]
     pageRef="posts"
     name = 'Posts'
     url = '/posts/'
-    weight = 30
+    weight = 20
 
 
 [params]

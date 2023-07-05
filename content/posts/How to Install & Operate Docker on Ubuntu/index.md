@@ -19,13 +19,9 @@ Before you start installing Docker, you need to set up its repository. After tha
 - First, you need to update the apt package index and install a few packages. These packages will allow apt to use a repository over HTTPS:
 {{< highlight html >}}
 sudo apt-get update  
- 
-sudo apt-get install \  
-    apt-transport-https \  
-    ca-certificates \  
-    curl \  
-    gnupg-agent \  
-    software-properties-common  
+
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common  
+
 {{< /highlight >}}
 
 - Then, you need to add GPG key of the official Docker repository to your system:

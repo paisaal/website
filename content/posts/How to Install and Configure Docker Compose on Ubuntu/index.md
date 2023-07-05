@@ -80,7 +80,7 @@ Next, add the following HTML code to the file:
             <div class="col-lg-6 col-md-8 mx-auto">  
                 <h1 class="fw-light">Docker Compose Example</h1>  
                 <p class="h4"> This is a basic static HTML page. </p>   
-                <p class="lead text-muted"> This page is being served from an Nginx Docker Container built using<b>docker-compose</b></p>     
+                <p class="lead text-muted"> This page is being served from an Nginx Docker Container built using <b>docker-compose</b></p>    
             </div>
         </div>
     </section>
