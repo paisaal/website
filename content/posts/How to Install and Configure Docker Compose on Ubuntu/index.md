@@ -1,6 +1,6 @@
 ---
 title: How to Install & Configure Docker Compose on Ubuntu
-date: '2023-07-04'
+date: '2023-07-06'
 author: Muhammad Nurfaisal
 description: Tutorial about how to install & Configure Docker Compose on Ubuntu 20.04
 ---
@@ -16,7 +16,7 @@ While splitting an application into multiple services is definitely great, it co
 # Prerequisites
 - As this is a hands-on tutorial, you should have an installation of Ubuntu 20.04 as your initial operating environment. You should also have a non-root user with sudo privileges.
 
-- You also need to install Docker.
+- You also need to install Docker. Please refer to this tutorial on [how to install and operate Docker on Ubuntu](https://nurfaisal.my.id/posts/how-to-install-operate-docker-on-ubuntu/)
 
 # Step 1: Installing Docker Compose
 We will be downloading the latest stable version of Docker Compose from its [official GitHub repository](https://github.com/docker/compose). You can find out the latest version from the releases page, at the time of writing this tutorial, the latest version is 2.18.1.
