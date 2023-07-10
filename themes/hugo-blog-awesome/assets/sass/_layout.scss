@@ -1,7 +1,7 @@
 // Author
 .author {
-  margin-top: 5rem;
-  margin-bottom: 7rem;
+  margin-top: 4rem;
+  margin-bottom: 5rem;
   text-align: center;
 
   @include media-query($on-mobile) {
@@ -9,8 +9,8 @@
   }
 
   .author-avatar {
-    width: 90px;
-    height: 90px;
+    width: 95px;
+    height: 95px;
     border-radius: 100%;
     user-select: none;
     background-color: $black;
@@ -23,7 +23,7 @@
   }
 
   .author-name {
-    font-size: 1.9em;
+    font-size: 2em;
     margin-bottom: 2px;
   }
 
