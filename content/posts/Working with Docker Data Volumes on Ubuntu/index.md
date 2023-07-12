@@ -18,6 +18,7 @@ To follow along with this tutorial you will need to have the below items:
 - Docker installed on Ubuntu. In order to install Docker on your Ubuntu you can follow our [How to install & operate Docker on Ubuntu](https://nurfaisal.my.id/posts/how-to-install-operate-docker-on-ubuntu/) blog.
 
 While this tutorial focuses on managing Docker on Ubuntu, docker commands are applicable across all operating systems with Docker installed.
+
 <br>
 
 # Understanding How Docker Containers Work
@@ -57,6 +58,8 @@ We will go over the process step by step:
     ```
     ![volume](./Images/ls.png)
     You will find your **sample_file** in this directory. There is no restriction on the number of volumes to specify. You can add as many volumes as you want using the **--volumes-from** flag. You can also create as many data volume containers as you’d like.
+
+<br>
 
 # Accessing Data Between the Host and Docker Container
 For readers experienced with Virtualization, this option is similar to the shared folder option in virtual machines. Here instead of creating a data-only container, we run our Docker application using Docker image and override one of its directories with the contents of a directory on the host system.
