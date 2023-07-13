@@ -2,7 +2,7 @@
 title: Working with Docker Volume on Ubuntu
 date: '2023-07-12'
 author: Muhammad Nurfaisal
-description: Tutorial about how to install & Configure Docker Compose on Ubuntu 20.04
+description: Tutorial about Working with Docker Volume on Ubuntu 20.04
 ---
 
 ![volume](./Images/DockerVolume.png)
