@@ -5,7 +5,7 @@ author: Muhammad Nurfaisal
 description: Tutorial about Clean Up Docker Resources
 ---
 
-![clean](./Images/docker_clean.png)
+![clean](./Images/dockerclean.png)
 
 [Docker](https://www.docker.com/) is one of the most popular products in organizations these days. It makes the process of managing applications in containers very easy. Docker provides portability, performance, agility, scalability, and isolation to the applications since it uses containers. Containers are more portable and require fewer resources than virtual machines. As you work with Docker, you tend to accumulate an excessive number of unused images, volumes, and containers. These resources will clutter the output and consume a lot of disk space. In this tutorial, you will learn how to clean up Docker resources and organize your server.
 
