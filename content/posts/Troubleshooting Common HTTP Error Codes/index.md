@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting Common HTTP Error Codes
-date: '2023-07-16'
+date: '2023-07-18'
 author: Muhammad Nurfaisal
 description: Tutorial Troubleshooting Common HTTP Error Codes
 ---

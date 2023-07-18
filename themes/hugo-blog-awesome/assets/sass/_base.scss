@@ -246,8 +246,8 @@ blockquote {
     padding-left: $spacing-full - 10;
 
     &.blurry {
-      animation: 0.2s ease-in forwards blur;
-      -webkit-animation: 0.2s ease-in forwards blur;
+      animation: 0.1s ease-in forwards blur;
+      -webkit-animation: 0.1s ease-in forwards blur;
     }
   }
 }
