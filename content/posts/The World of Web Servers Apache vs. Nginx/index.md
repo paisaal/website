@@ -1,6 +1,6 @@
 ---
 title: "The World of Web Servers: Apache vs Nginx"
-date: '2023-07-18'
+date: '2023-07-31'
 author: Muhammad Nurfaisal
 description: 
 ---
