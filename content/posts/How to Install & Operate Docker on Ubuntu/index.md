@@ -2,7 +2,7 @@
 title: How to Install & Operate Docker on Ubuntu
 date: '2023-07-03'
 author: Muhammad Nurfaisal
-description: Tutorial about how to install & operate docker on ubuntu in private server.
+description:
 ---
 
 ![docker](./Images/docker.png)

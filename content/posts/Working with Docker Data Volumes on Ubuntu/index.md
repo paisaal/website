@@ -2,7 +2,7 @@
 title: Working with Docker Volume on Ubuntu
 date: '2023-07-12'
 author: Muhammad Nurfaisal
-description: Tutorial about Working with Docker Volume on Ubuntu 20.04
+description: 
 ---
 
 ![volume](./Images/DockerVolume.png)
@@ -37,14 +37,14 @@ We will go over the process step by step:
 
 1. First, create a new container called, my-container by running the below command:
     ```html
-    docker create -v /tmp --name my-container ubuntu
+    docker create -v /tmp --name my-container ubuntu    
     ```
     ![volume](./Images/docker%20create.png)
     This will create a new container in the /tmp folder. You can change the folder directory as needed.
 
 2. Now that your data container is ready, you can write to it by running a new Ubuntu container with the --volume-from flag and then running the bash. Anything we write to the tmp directory will be saved in our host machine’s /tmp folder:
     ```html
-    docker run -t -i --volumes-from my-container ubuntu /bin/bash
+    docker run -t -i --volumes-from my-container ubuntu /bin/bash   
     ```
     ![volume](./Images/docker%20run%20-t.png)
     **-t** command line option calls a terminal from inside the container. The -i flag makes the connection interactive. At the bash prompt for the Ubuntu container, create a file in /tmp:
@@ -54,7 +54,7 @@ We will go over the process step by step:
 
 3. Finally, exit this bash by running the exit command. Next, run the below command:
     ```html
-    docker run -t -i --volumes-from my-container ubuntu /bin/bash
+    docker run -t -i --volumes-from my-container ubuntu /bin/bash   
     ```
     ![volume](./Images/ls.png)
     You will find your **sample_file** in this directory. There is no restriction on the number of volumes to specify. You can add as many volumes as you want using the **--volumes-from** flag. You can also create as many data volume containers as you’d like.
@@ -70,11 +70,11 @@ To achieve our goal, we would need to create a shared folder to store the logs b
 
 1. First, create a directory in your host machine where you want to store the logs:
     ```html
-    mkdir ~/my-nginxlogs
+    mkdir ~/my-nginxlogs    
     ```
     Then, start your container by running the below command:
     ```html
-    docker run -d -v ~/my-nginxlogs:/var/log/nginx -p 5000:80 -i nginx
+    docker run -d -v ~/my-nginxlogs:/var/log/nginx -p 5000:80 -i nginx      
     ```
     ![volume](./Images/run%20nginx.png)
 
@@ -90,7 +90,3 @@ If you open your host machine’s /my-nginxlogs folder, you will see the log fil
 
 ## Conclusion
 In this tutorial, we took a comprehensive approach towards understanding Docker Data Volumes. We looked at creating volumes for your application, sharing data between host and Docker container, types of data, and persisting data. This will help you in persisting data in your containerized applications as well as managing the state and configuration of the application.
-
-
-
-

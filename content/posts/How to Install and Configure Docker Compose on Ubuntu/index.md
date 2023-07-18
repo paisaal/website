@@ -2,7 +2,7 @@
 title: How to Install & Configure Docker Compose on Ubuntu
 date: '2023-07-06'
 author: Muhammad Nurfaisal
-description: Tutorial about how to install & Configure Docker Compose on Ubuntu 20.04
+description: 
 ---
 
 ![compose](./Images/dcompose.png)
@@ -23,19 +23,19 @@ We will be downloading the latest stable version of Docker Compose from its [off
 
 First, log in to your Ubuntu server with the non-root sudo user and enter the following command. It downloads the latest release (2.18.1). This makes it globally accessible as docker-compose:
 ```html
-DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-mkdir -p $DOCKER_CONFIG/cli-plugins
+DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}   
+mkdir -p $DOCKER_CONFIG/cli-plugins 
 curl -SL https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose   
 ```
 
 Once it has downloaded, enter the following command to set the appropriate permissions for the docker-compose command to be executable:
 ```html
-chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose  
 ```
 
 Now, verify that the installation is a success and the command can be invoked by running the following command:
 ```html
-docker compose version
+docker compose version  
 ```
 
 You should get an output like this:  
