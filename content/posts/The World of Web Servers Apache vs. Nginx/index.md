@@ -168,5 +168,3 @@ Another Nginx feature that users capitalize on is its ability to handle static c
 At the end of the day, both Apache and Nginx have their strengths and weaknesses. There are no hard and fast rules or recommendations for which server you should use for your project. You are the best judge of what works best for your application based on your unique requirements.
 
 You need to find out the aspects and features that you cannot compromise on and choose accordingly. If it is hard to make the decision, you can always turn to using both servers together in a customized solution.
-
-
