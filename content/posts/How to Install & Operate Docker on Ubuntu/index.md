@@ -18,7 +18,7 @@ Before you start installing Docker, you need to set up its repository. After tha
 
 - First, you need to update the apt package index and install a few packages. These packages will allow apt to use a repository over HTTPS:
 {{< highlight html >}}
-sudo apt-get update  
+sudo apt-get update
 
 sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common  
 
@@ -42,7 +42,7 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 - Finally, you can install the Docker engine. The following commands first update the apt package index and then install the latest version of Docker engine and contained:
 {{< highlight html >}}
 sudo apt-get update  
-sudo apt-get install docker-ce docker-ce-cli containerd.io  
+sudo apt-get install docker-ce docker-ce-cli containerd.io -y  
 {{< /highlight >}}
 
 <br>
