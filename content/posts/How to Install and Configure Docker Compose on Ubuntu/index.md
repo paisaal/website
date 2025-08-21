@@ -1,6 +1,6 @@
 ---
 title: How to Install & Configure Docker Compose on Ubuntu
-date: '2023-07-08'
+date: '2023-10-08'
 author: Muhammad Nurfaisal
 description: 
 ---
