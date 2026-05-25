@@ -10,7 +10,6 @@
   HUGO_VERSION = "0.110.0"
   NODE_VERSION = "22"
 
-
 # Deploy Preview context: all deploys generated from
 # a pull/merge request will inherit these settings.
 [context.deploy-preview]
