@@ -1,0 +1,47 @@
+.list-page .post-year {
+    padding-bottom: .5rem;
+    opacity: 0.6;
+    font-size: 1.1em;
+    letter-spacing: 0.05rem;
+}
+
+// Modern post card
+.list-page {
+    .post-item {
+        display: flex;
+        flex-direction: column;
+        padding: 1.1rem 1.3rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(13, 18, 43, 0.08);
+        border-radius: 14px;
+        background-color: rgba(255, 255, 255, 0.4);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(13, 18, 43, 0.08);
+            border-color: rgba(13, 18, 43, 0.14);
+        }
+    }
+
+    .post-item-title {
+        margin: 0;
+        font-size: 1.15em;
+
+        a {
+            text-decoration: none;
+
+            &:hover {
+                color: $text-link-blue;
+            }
+        }
+    }
+
+    .post-item-meta {
+        display: inline-block;
+        margin-top: .4rem;
+        font-size: $small-font-size;
+        color: $gray;
+        opacity: 0.8;
+    }
+}

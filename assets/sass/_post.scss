@@ -1,0 +1,263 @@
+// Post wrapper
+.wrapper.post {
+  @include media-query($on-mobile) {
+    padding-left: $spacing-half;
+    padding-right: $spacing-half;
+  }
+}
+
+// Post title
+.header {
+  margin-top: 5em;
+
+  .header-title {
+    font-size: 2em;
+    line-height: 1;
+    margin-top: 5px;
+    margin-bottom: 10px;
+
+    &.center {
+      text-align: center;
+    }
+
+    @include media-query($on-mobile) {
+      font-size: 1.8em;
+    }
+  }
+}
+
+// Post meta
+.post-meta {
+  padding-top: 3px;
+  line-height: 1.3;
+  color: $gray;
+
+  time {
+    position: relative;
+    margin-right: 1.5em;
+  }
+
+  span[itemprop="author"] {
+    border-bottom: 1px dotted $light;
+  }
+}
+
+// Post content
+.page-content {
+  padding-top: 8px;
+
+  iframe {
+    text-align: center;
+  }
+
+  blockquote {
+    border-left: 4px solid $text-link-blue;
+    border-radius: 8px;
+    background-color: rgba(205, 92, 92, 0.06);
+    padding: .8rem 1.2rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  li > code,
+  p > code {
+    border-radius: 6px;
+    padding: 2px 6px;
+  }
+
+  pre {
+    border-radius: 12px;
+  }
+
+  figure {
+    img {
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(13, 18, 43, 0.1);
+    }
+
+    figcaption {
+      margin-top: 10px;
+      opacity: 0.7;
+      font-style: italic;
+      font-size: $small-font-size;
+    }
+  }
+
+  a {
+    color: $text-link-blue;
+    text-decoration: none;
+    &[target="_blank"]::after {
+      content: " \2197";
+      font-size: $small-font-size;
+      line-height: 0;
+      position: relative;
+      bottom: 5px;
+      vertical-align: baseline;
+    }
+
+    &:hover {
+      color: $text-link-blue-active;
+    }
+
+    &:focus {
+      color: $text-link-blue;
+    }
+  }
+
+  > p {
+    margin: 0;
+    padding-top: $spacing-full - 15;
+    padding-bottom: $spacing-full - 15;
+  }
+
+  ul.task-list {
+    list-style: none;
+    margin: 0;
+
+    li::before {
+      content: "";
+    }
+
+    li input[type="checkbox"] {
+      margin-right: 10px;
+    }
+  }
+
+  dl dt {
+    font-weight: $bold-weight;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $black;
+    font-weight: $bold-weight;
+    margin-top: $spacing-full + 10;
+    margin-bottom: 0;
+    letter-spacing: -0.01rem;
+    scroll-margin-top: 80px;
+
+    &:hover {
+      .anchor-head {
+        color: $text-link-blue;
+        opacity: 1;
+      }
+    }
+
+    .anchor-head {
+      position: relative;
+      opacity: 0;
+      outline: none;
+      transition: opacity 0.15s ease;
+
+      &::before {
+        content: "#";
+        position: absolute;
+        right: -3px;
+        width: 1em;
+        font-weight: $bold-weight;
+      }
+    }
+  }
+
+  h1 {
+    @include relative-font-size(1.5);
+  }
+
+  h2 {
+    @include relative-font-size(1.375);
+  }
+
+  h3 {
+    @include relative-font-size(1.25);
+  }
+
+  h4 {
+    @include relative-font-size(1.25);
+  }
+
+  h5 {
+    @include relative-font-size(1);
+  }
+
+  h6 {
+    @include relative-font-size(0.875);
+  }
+}
+
+.post-nav {
+  display: flex;
+  position: relative;
+  margin-top: 5em;
+  border-top: none;
+  padding-top: 1.5em;
+  line-height: 1.4;
+  gap: 1rem;
+
+  .post-nav-item {
+    border: 1px solid rgba(13, 18, 43, 0.08);
+    border-radius: 12px;
+    font-weight: $bold-weight;
+    padding: 1rem 1.2rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(13, 18, 43, 0.08);
+    }
+
+    .post-title {
+      color: $black;
+    }
+
+    &:hover,
+    &:focus {
+      .post-title {
+        color: $text-link-blue-active;
+        opacity: 0.9;
+      }
+    }
+
+    .nav-arrow {
+      font-weight: $normal-weight;
+      font-size: $small-font-size;
+      color: $gray;
+      margin-bottom: 3px;
+    }
+
+    width: 50%;
+    text-decoration: none;
+    box-sizing: border-box;
+
+    &:nth-child(odd) {
+      padding-right: 1.2rem;
+    }
+
+    &:nth-child(even) {
+      text-align: right;
+    }
+  }
+
+  @include media-query($on-mobile) {
+    display: flex;
+    flex-direction: column;
+    font-size: $small-font-size;
+
+    .post-nav-item {
+      display: block;
+      width: 100%;
+    }
+
+    .post-nav-item:nth-child(even) {
+      border-left: 0;
+      text-align: left;
+    }
+  }
+}
+
+.post-updated-at {
+  font-family: "Ubuntu mono", "monospace";
+}
