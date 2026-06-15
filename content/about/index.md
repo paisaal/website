@@ -48,35 +48,6 @@ I am a graduate of Wikrama Vocational School, majoring in Computer and Network E
 * Provided technical support for computer and network systems
 * Assisted in troubleshooting hardware and software issues
 * Supported daily IT operations and user assistance
-=======
-An IT Engineer from Bogor, Indonesia. Not as big, but also not as busy.  
-
-I am an alumni of Wikrama Vocational School and I majored in Computer and Network Engineering.  
-
----
-
-## 💼 Projects & Experiences
-
-**PT. Bringin Inti Teknologi (bit.)**  
-*(September 2022 – now)*  
-
-🔹 **Managed Services & Operational – HPE Cloudera (September 2023 – now)**  
-- Basic server setup  
-- Install and configure Red Hat OS  
-- Monitoring 112 HPE servers using OneView  
-
-🔹 **Managed Services & Operational – Internal Projects (September 2022 – August 2023)**  
-- Install and configure servers  
-- Work with AWS, GCP, Docker, Wazuh IPS, Zabbix, Grafana, OpenVPN, etc.  
-- Setup, check, and patch security systems  
-- Code Cleaning, SAST, DAST  
-- Other operational & managed services tasks  
-
-**Internship – SPN Polda Metro Jaya**  
-*(January 2022 – March 2022)*  
-- Technical support for computer and networking systems  
-- Assisted in troubleshooting hardware & software issues  
-- Provided basic IT support for daily operations 
 
 ---
 
@@ -106,14 +77,6 @@ I am an alumni of Wikrama Vocational School and I majored in Computer and Networ
 * Hugo
 * GitHub
 * Netlify
-
-=======
-- Networking (Cisco, Mikrotik)  
-- Linux & Server Administration  
-- Docker & Containerization  
-- Cloud Platforms (AWS, GCP)  
-- Security Monitoring (Wazuh, Zabbix, Grafana)  
-- Web Development (Hugo, Netlify, GitHub Pages)   
 
 ---
 
