@@ -7,7 +7,6 @@ author: Muhammad Nurfaisal
 
 Hi, I’m **Muhammad Nurfaisal** 👋
 
-<<<<<<< HEAD
 An Infrastructure & System Engineer from Bogor, Indonesia.
 
 I am a graduate of Wikrama Vocational School, majoring in Computer and Network Engineering. I have experience in enterprise infrastructure operations, Linux administration, server monitoring, and cloud technologies. Currently, I support large-scale HPE Cloudera environments and help maintain infrastructure reliability and availability.
@@ -78,12 +77,10 @@ I am an alumni of Wikrama Vocational School and I majored in Computer and Networ
 - Technical support for computer and networking systems  
 - Assisted in troubleshooting hardware & software issues  
 - Provided basic IT support for daily operations 
->>>>>>> 5ba48d77e2358725c8e7fed48c45728fe417fd1c
 
 ---
 
 ## 💻 Skills & Interests
-<<<<<<< HEAD
 
 ### Infrastructure & Systems
 
@@ -119,7 +116,6 @@ I am an alumni of Wikrama Vocational School and I majored in Computer and Networ
 - Web Development (Hugo, Netlify, GitHub Pages)   
 
 ---
->>>>>>> 5ba48d77e2358725c8e7fed48c45728fe417fd1c
 
 ## ✍️ Blogging
 I blog about my experiences, to help others, and to keep track of what I’ve done.  
