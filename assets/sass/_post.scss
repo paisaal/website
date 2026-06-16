@@ -83,6 +83,59 @@
     }
   }
 
+  // About page
+  .about-page & {
+    h2 {
+      margin-top: $spacing-full + 30;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid rgba(13, 18, 43, 0.08);
+    }
+
+    h3 {
+      font-size: 1.05em;
+      margin-top: $spacing-full + 10;
+      color: $text-link-blue;
+    }
+
+    h3 + p > em:only-child,
+    h3 + em {
+      display: inline-block;
+      font-style: normal;
+      font-size: $small-font-size;
+      opacity: 0.65;
+      margin-top: 2px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+
+      li {
+        position: relative;
+        padding-left: 1.3rem;
+        margin-bottom: .35rem;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: .65em;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: $text-link-blue;
+          opacity: 0.6;
+        }
+      }
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(13, 18, 43, 0.08);
+      margin: 2.5rem 0;
+    }
+  }
+
   a {
     color: $text-link-blue;
     text-decoration: none;
