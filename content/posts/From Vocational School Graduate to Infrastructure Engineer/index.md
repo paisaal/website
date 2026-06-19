@@ -1,6 +1,6 @@
 ---
 title: "From Vocational School Graduate to Infrastructure Engineer"
-date: 2026-06-18
+date: 2026-06-19
 author: Muhammad Nurfaisal
 ---
 

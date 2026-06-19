@@ -2,10 +2,9 @@
 title: "Lessons Learned from Monitoring 112+ HPE Servers"
 date: 2026-06-15
 author: Muhammad Nurfaisal
-tags: ["Monitoring", "HPE", "Cloudera", "OneView", "DevOps", "SysAdmin"]
 ---
 
-As part of a Managed Services & Operational project at PT. Bringin Inti Teknologi (BIT), I have been involved in operating and monitoring more than 112 HPE servers running in an enterprise Cloudera environment.
+As part of a Managed Services & Operational project at PT. Bringin Inti Teknologi (Bitcorp), I have been involved in operating and monitoring more than 112 HPE servers running in an enterprise Cloudera environment.
 
 The infrastructure was primarily monitored using HPE OneView and iLO, while Grafana and Zabbix were used to collect metrics, visualize resource utilization, and support operational analysis.
 
