@@ -86,13 +86,13 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
   TileColor = "#191970" # default windows 10 blue tile color
 
 [[params.socialIcons]]
-name = "github"
-url = "https://github.com/paisaal"
+#name = "github"
+#url = "https://github.com/paisaal"
 
 [[params.socialIcons]]
-  name = "email"
-  url = "mailto:nurfaisal240604@gmail.com"
+#  name = "email"
+#  url = "mailto:nurfaisal240604@gmail.com"
 
 [[params.socialIcons]]
-name = "Instagram"
-url = "https://instagram.com/pa.isaal"
+#name = "Instagram"
+#url = "https://instagram.com/pa.isaal"
