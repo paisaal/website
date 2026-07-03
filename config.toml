@@ -9,9 +9,11 @@ theme = "hugo-blog-awesome"
 # This defines how dates are formatted
 defaultContentLanguage = "en-us"
 
+# GA4 sekarang dihandle lewat Google Tag Manager (lihat layouts/partials/head.html),
+# jadi baris ini sengaja dikosongin biar nggak dobel tracking.
 # To enable Google Analytics 4 (gtag.js) provide G-MEASUREMENT_ID below.
 # To disable Google Analytics, simply leave the field empty or remove the next line
-googleAnalytics = 'G-P118LBHZQK' # G-MEASUREMENT_ID
+# googleAnalytics = 'G-P118LBHZQK' # G-MEASUREMENT_ID
 
 # Enable emojis globally
 enableEmoji = true

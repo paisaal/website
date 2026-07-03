@@ -41,10 +41,7 @@
 
     {{- if or .Params.math .Site.Params.math }}{{ partial "helpers/katex.html" . -}}{{- end -}}
 
-    {{/* Google analytics script (GA4 via config.toml). See config.toml to enable/disable this. */}}
-    {{- if hugo.IsProduction | or (eq site.Params.env "production") }}
-    {{ template "_internal/google_analytics.html" . }}
-    {{- end -}}
+    {{/* GA4 dihandle lewat GTM (Tag Google), jadi nggak perlu template GA4 internal Hugo lagi di sini */}}
 
     {{/* Google Tag Manager */}}
     {{- if hugo.IsProduction | or (eq site.Params.env "production") }}
