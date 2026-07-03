@@ -1,5 +1,5 @@
 ---
-title: "Linux in Production What I Learned Supporting Enterprise Servers"
+title: "Linux in Production: What I Learned Supporting Enterprise Servers"
 date: 2026-07-03
 author: Muhammad Nurfaisal
 ---
@@ -9,6 +9,7 @@ When I first learned Linux during vocational school, most of my experience came 
 After joining PT. Bringin Inti Teknologi (BIT), I realized that managing Linux in a production environment is a completely different experience.
 
 Linux is no longer just an operating system—it becomes the foundation that supports enterprise services, requiring stability, careful planning, and operational discipline.
+
 ---
 
 ## From Learning Linux to Operating Enterprise Servers
