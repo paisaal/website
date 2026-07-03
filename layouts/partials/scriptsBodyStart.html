@@ -1,0 +1,13 @@
+{{/* Google Tag Manager (noscript) */}}
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PF2VPCRM"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+{{- end -}}
+
+{{ if hugo.IsProduction }}
+{{ $theme_script := resources.Get "js/theme.js" | minify | fingerprint }}
+<script src="{{ $theme_script.RelPermalink }}" integrity="{{ $theme_script.Data.Integrity }}"></script>
+{{ else }}
+{{ $theme_script := resources.Get "js/theme.js" }}
+<script src="{{ $theme_script.RelPermalink }}"></script>
+{{ end}}
