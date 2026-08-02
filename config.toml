@@ -1,4 +1,4 @@
-title = "Hi, Im Muhammad Nurfaisal"
+title = "Hi, I'm Muhammad Nurfaisal"
 baseURL = 'https://muhnurfaisal.my.id'
 
 # This is what goes in <html lang="">
@@ -88,8 +88,8 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
   TileColor = "#191970" # default windows 10 blue tile color
 
 [[params.socialIcons]]
-#name = "github"
-#url = "https://github.com/paisaal"
+name = "github"
+url = "https://github.com/paisaal"
 
 [[params.socialIcons]]
 #  name = "email"
