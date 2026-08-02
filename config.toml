@@ -90,11 +90,3 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
 [[params.socialIcons]]
 name = "github"
 url = "https://github.com/paisaal"
-
-[[params.socialIcons]]
-#  name = "email"
-#  url = "mailto:nurfaisal240604@gmail.com"
-
-[[params.socialIcons]]
-#name = "Instagram"
-#url = "https://instagram.com/pa.isaal"
