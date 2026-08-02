@@ -5,9 +5,9 @@
 <body data-theme="{{ .Site.Params.defaultColor | default "auto" }}" class="notransition">
     {{- partial "scriptsBodyStart.html" . -}}
     {{- partial "header.html" . -}}
-    <div class="wrapper">
+    <main class="wrapper" aria-label="Content">
         {{ partial "bio" . }}   
-    </div>
+    </main>
 
     <!-- Pemanggilan template partial "footer.html" -->
     <footer class="footer">
