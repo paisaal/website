@@ -1,86 +1,35 @@
 ---
 title: About
-date: '2004-06-24'
 author: Muhammad Nurfaisal
 ---
 
+## Hi, I'm Muhammad Nurfaisal 👋
 
-Hi, I’m **Muhammad Nurfaisal** 👋
+I'm an Infrastructure & System Engineer based in Bogor, Indonesia, and this site is basically my digital workshop — a place where I write about what I'm learning, building, and breaking (usually followed by fixing).
 
-An Infrastructure & System Engineer from Bogor, Indonesia.
+My path into infrastructure started at Wikrama Vocational School, where I majored in Computer and Network Engineering. Since then I've spent nearly four years keeping enterprise systems alive — from provisioning Linux servers and wrangling Docker environments early in my career, to now supporting large-scale HPE Cloudera infrastructure, where I help keep 112+ production servers healthy, monitored, and running smoothly. There's a specific kind of satisfaction in catching a failing disk or a flaky NIC before it becomes an outage, and that's a big part of why I do this work.
 
-I am a graduate of Wikrama Vocational School, majoring in Computer and Network Engineering. I have experience in enterprise infrastructure operations, Linux administration, server monitoring, and cloud technologies. Currently, I support large-scale HPE Cloudera environments and help maintain infrastructure reliability and availability.
+Outside my day job, I'm currently studying Information Systems at Universitas Terbuka — mostly to sharpen the theory behind the systems thinking I already use daily, and to push myself further toward cloud and DevOps practices.
 
----
+#### What I Do
 
-## 💼 Professional Experience
+At PT. Bringin Inti Teknologi (BIT), I work on Managed Services & Operations for HPE Cloudera environments — monitoring and maintaining HPE servers via OneView and iLO, administering RHEL, troubleshooting hardware and network issues, and generating capacity reports that keep infrastructure planning grounded in real data. Before this role, I spent a year on internal projects touching a broader stack: Ubuntu server provisioning, Docker, OpenVPN, and monitoring across Grafana, Zabbix, and Wazuh — plus some early exposure to AWS and GCP.
 
-### PT. Bringin Inti Teknologi (BIT)
+#### Things I've Built
 
-*(September 2022 – Present)*
+This site itself is one of them — built with Hugo and deployed on Netlify, and honestly a bit of a playground for me to learn deployment workflows, theming, and site performance outside of enterprise constraints.
 
-#### Managed Services & Operational – HPE Cloudera
+I also built Nusakabar, a Hugo-based news site covering Kuliner, Lifestyle, and Teknologi. It started as a way to practice frontend layout work and content structuring — things that don't come up much in server rooms, which is exactly why I enjoy it.
 
-*(September 2023 – Present)*
+You can find more of what I'm tinkering with on GitHub.
 
-* Monitor and maintain 112+ HPE servers using HPE OneView and iLO
-* Install, configure, and administer Red Hat Enterprise Linux (RHEL)
-* Perform daily infrastructure health checks and operational monitoring
-* Troubleshoot hardware alerts, including disk, NIC, and SFP failures
-* Support server maintenance and hardware replacement activities
-* Configure and troubleshoot server network connectivity
-* Ensure infrastructure availability and operational stability
+#### Why I Blog
 
-#### Managed Services & Operational – Internal Projects
+I write here mostly for two people: future-me, who will inevitably forget how I solved a problem six months from now, and anyone else who runs into the same issue and finds this page useful. If a post here saves you an hour of troubleshooting, that's the whole point.
 
-*(September 2022 – August 2023)*
+#### Toolbox
 
-* Install and configure Linux-based servers
-* Work with AWS, GCP, Docker, Wazuh, Zabbix, Grafana, and OpenVPN
-* Perform security checks, patching, and system maintenance
-* Support SAST and DAST security testing activities
-* Assist in operational and managed services tasks across multiple environments
-
-### Internship – SPN Polda Metro Jaya
-
-*(January 2022 – March 2022)*
-
-* Provided technical support for computer and network systems
-* Assisted in troubleshooting hardware and software issues
-* Supported daily IT operations and user assistance
-
----
-
-## 💻 Skills & Interests
-
-### Infrastructure & Systems
-
-* Linux Administration (RHEL, Debian, Ubuntu)
-* Server Monitoring & Operations
-* HPE OneView & iLO
-* Networking (Cisco, MikroTik)
-
-### Cloud & Containerization
-
-* AWS
-* Google Cloud Platform (GCP)
-* Docker
-
-### Monitoring & Security
-
-* Grafana
-* Zabbix
-* Wazuh
-
-### Development & Tools
-
-* Hugo
-* GitHub
-* Netlify
-
----
-
-## ✍️ Blogging
-I blog about my experiences, to help others, and to keep track of what I’ve done.  
-
----
+- Infrastructure & Systems — Linux Administration (RHEL, Debian, Ubuntu), HPE OneView & iLO, Server Monitoring & Operations, Networking (Cisco, MikroTik)
+- Cloud & Containers — AWS, Google Cloud Platform (GCP), Docker
+- Monitoring & Security — Grafana, Zabbix, Wazuh
+- Development & Tools — Hugo, GitHub, Netlify
