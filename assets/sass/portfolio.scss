@@ -1,0 +1,1021 @@
+//////////////// 1. DESIGN SYSTEM ////////////////
+
+$portfolio-bg: #0B0F0E;
+$portfolio-surface: #121916;
+$portfolio-card: #151E19;
+$portfolio-border: #26332B;
+$portfolio-green: #B5F36B;
+$portfolio-text: #F1F5F2;
+$portfolio-muted: #929E96;
+$portfolio-mono: 'JetBrains Mono', monospace;
+
+
+//////////////// 2. MIXINS ////////////////
+
+// Kasih nomor urut (--i) ke tiap anak: 0, 1, 2, ...
+@mixin stagger-index($count) {
+    @for $i from 1 through $count {
+        &:nth-child(#{$i}) {
+            --i: #{$i - 1};
+        }
+    }
+}
+
+// Muncul saat elemen masuk layar, satu per satu sesuai --i.
+// $step = jeda antar elemen (dalam % scroll)
+@mixin reveal-on-scroll($step: 8%) {
+    @supports (animation-timeline: view()) {
+        animation: reveal-up ease-out backwards;
+        animation-timeline: view();
+        animation-range:
+            entry calc(var(--i, 0) * #{$step})
+            entry calc(35% + var(--i, 0) * #{$step});
+    }
+}
+
+
+//////////////// 3. BASE ////////////////
+
+html {
+    scroll-behavior: smooth;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+// Background custom cuma untuk dark mode
+body[data-theme="dark"] {
+    background-color: $portfolio-bg;
+    color: $portfolio-text;
+}
+
+.portfolio-wrapper {
+    width: calc(100% - 48px);
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 100px 0 20px;
+}
+
+body > main.portfolio-wrapper {
+    flex: 1 0 auto !important;
+}
+
+.portfolio-wrapper .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: $portfolio-muted;
+    font-family: $portfolio-mono;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    margin-bottom: 28px;
+
+    span {
+        color: $portfolio-green;
+    }
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    margin-bottom: 35px;
+
+    h2 {
+        color: $portfolio-text;
+        font-size: clamp(28px, 4vw, 38px);
+        font-weight: 750;
+        letter-spacing: -1.5px;
+        margin: 0;
+    }
+
+    > p {
+        max-width: 350px;
+        color: $portfolio-muted;
+        font-size: 13px;
+        line-height: 1.8;
+        margin-bottom: 4px;
+    }
+}
+
+
+//////////////// 4. HERO ////////////////
+
+.hero-section {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 65px;
+    min-height: 460px;
+    margin-bottom: 115px;
+}
+
+.hero-content {
+    animation: hero-enter 0.8s ease both;
+}
+
+.hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    margin-bottom: 28px;
+    border: 1px solid rgba($portfolio-green, 0.25);
+    border-radius: 50px;
+    color: $portfolio-green;
+    background: rgba($portfolio-green, 0.06);
+    font-family: $portfolio-mono;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $portfolio-green;
+    box-shadow: 0 0 12px rgba($portfolio-green, 0.7);
+    animation: status-pulse 2s infinite;
+}
+
+.hero-greeting {
+    color: $portfolio-muted;
+    font-family: $portfolio-mono;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.hero-content h1 {
+    color: $portfolio-text;
+    font-size: clamp(42px, 6vw, 68px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -3px;
+    margin: 0 0 22px;
+}
+
+.hero-highlight {
+    color: $portfolio-green;
+}
+
+.hero-role {
+    max-width: 520px;
+    color: $portfolio-text;
+    font-size: clamp(20px, 2.5vw, 27px);
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 18px;
+
+    span {
+        color: $portfolio-green;
+    }
+}
+
+.hero-description {
+    max-width: 510px;
+    color: $portfolio-muted;
+    font-size: 14px;
+    line-height: 1.9;
+    margin-bottom: 30px;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 30px;
+
+    a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 12px 20px;
+        border-radius: 7px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+        transition: all 0.25s ease;
+    }
+}
+
+.btn-primary {
+    background: $portfolio-green;
+    color: #11180F !important;
+
+    &:hover {
+        background: #D0FF91;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba($portfolio-green, 0.18);
+    }
+}
+
+.btn-secondary {
+    border: 1px solid $portfolio-border;
+    color: $portfolio-text !important;
+    background: $portfolio-surface;
+
+    &:hover {
+        border-color: $portfolio-green;
+        color: $portfolio-green !important;
+        transform: translateY(-3px);
+    }
+}
+
+.hero-social {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: $portfolio-muted;
+    font-family: $portfolio-mono;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+}
+
+.social-divider {
+    color: $portfolio-green;
+}
+
+
+//////////////// 5. TERMINAL ////////////////
+
+.hero-terminal {
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid $portfolio-border;
+    border-radius: 12px;
+    background: $portfolio-surface;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+    // backwards (bukan both) supaya hover translateY tetap jalan setelah animasi selesai
+    animation: terminal-enter 1s ease backwards 0.2s;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        border-color: rgba($portfolio-green, 0.5);
+    }
+}
+
+.terminal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 15px 18px;
+    border-bottom: 1px solid $portfolio-border;
+    color: $portfolio-muted;
+    font-family: $portfolio-mono;
+    font-size: 10px;
+}
+
+.terminal-dots {
+    display: flex;
+    gap: 6px;
+
+    span {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #64736A;
+    }
+
+    span:first-child  { background: #F07178; }
+    span:nth-child(2) { background: #E9C46A; }
+    span:last-child   { background: $portfolio-green; }
+}
+
+.terminal-menu {
+    letter-spacing: 2px;
+}
+
+.terminal-body {
+    padding: 24px 22px;
+    font-family: $portfolio-mono;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.terminal-line {
+    color: $portfolio-text;
+    margin-bottom: 8px;
+    overflow-wrap: anywhere;
+}
+
+.terminal-user { color: $portfolio-green; }
+.terminal-path { color: #83B6FF; }
+
+.terminal-command {
+    display: inline-block;
+    white-space: pre;
+}
+
+.terminal-output {
+    color: $portfolio-muted;
+    padding-left: 12px;
+    margin-bottom: 22px;
+
+    p {
+        margin: 0;
+        padding: 2px 0;
+
+        &::before {
+            content: "> ";
+            color: $portfolio-green;
+        }
+    }
+}
+
+.terminal-cursor {
+    display: inline-block;
+    color: $portfolio-green;
+    animation: cursor-blink 1s steps(2, start) infinite;
+}
+
+.terminal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 16px;
+    margin-top: 24px;
+    border-top: 1px solid $portfolio-border;
+    color: $portfolio-muted;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+}
+
+.terminal-online {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $portfolio-green;
+    box-shadow: 0 0 10px rgba($portfolio-green, 0.6);
+    margin-right: -4px;
+}
+
+// State yang dipakai terminal.js
+.terminal-body.is-animating .terminal-hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.terminal-output,
+.terminal-output p,
+.terminal-result,
+.terminal-skills p,
+.terminal-final {
+    transition: opacity 0.3s ease;
+}
+
+.terminal-animating {
+    .terminal-result,
+    .terminal-skills p,
+    .terminal-final {
+        opacity: 0;
+    }
+}
+
+
+//////////////// 6. TECH STACK ////////////////
+
+.tech-section {
+    padding: 40px 0;
+    margin-bottom: 110px;
+    border-top: 1px solid $portfolio-border;
+    border-bottom: 1px solid $portfolio-border;
+}
+
+.tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.tech-item {
+    padding: 9px 15px;
+    border: 1px solid $portfolio-border;
+    border-radius: 6px;
+    color: $portfolio-muted;
+    background: $portfolio-surface;
+    font-family: $portfolio-mono;
+    font-size: 11px;
+    transition: all 0.25s ease;
+
+    @include stagger-index(8);
+    @include reveal-on-scroll(3%);
+
+    &:hover {
+        color: $portfolio-green;
+        border-color: $portfolio-green;
+        transform: translateY(-3px);
+    }
+}
+
+
+//////////////// 7. TECHNICAL FOCUS ////////////////
+
+.focus-section {
+    margin-bottom: 115px;
+}
+
+.focus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.focus-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 225px;
+    padding: 26px;
+    border: 1px solid $portfolio-border;
+    border-radius: 10px;
+    background: $portfolio-surface;
+    transition: all 0.3s ease;
+
+    @include stagger-index(3);
+    @include reveal-on-scroll(10%);
+
+    &:hover {
+        transform: translateY(-7px);
+        border-color: rgba($portfolio-green, 0.55);
+        background: $portfolio-card;
+    }
+
+    h3 {
+        color: $portfolio-text;
+        font-size: 18px;
+        font-weight: 650;
+        margin: 28px 0 12px;
+    }
+
+    p {
+        color: $portfolio-muted;
+        font-size: 12px;
+        line-height: 1.9;
+    }
+}
+
+.focus-number {
+    color: $portfolio-green;
+    font-family: $portfolio-mono;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.focus-icon {
+    position: absolute;
+    right: 20px;
+    bottom: 5px;
+    color: rgba($portfolio-green, 0.08);
+    font-family: $portfolio-mono;
+    font-size: 75px;
+    pointer-events: none;
+}
+
+
+//////////////// 8. LATEST ARTICLES ////////////////
+
+.articles-section {
+    margin-bottom: 0;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.article-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+    padding: 24px;
+    border: 1px solid $portfolio-border;
+    border-radius: 10px;
+    background: $portfolio-surface;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+
+    @include stagger-index(3);
+    @include reveal-on-scroll(10%);
+
+    &:hover {
+        transform: translateY(-5px);
+        border-color: $portfolio-green;
+        background: $portfolio-card;
+    }
+
+    h3 {
+        color: $portfolio-text;
+        font-size: 17px;
+        line-height: 1.5;
+        margin: 22px 0 12px;
+    }
+
+    p {
+        color: $portfolio-muted;
+        font-size: 12px;
+        line-height: 1.8;
+    }
+}
+
+.article-date {
+    color: $portfolio-green;
+    font-family: $portfolio-mono;
+    font-size: 10px;
+}
+
+.article-link {
+    margin-top: auto;
+    padding-top: 15px;
+    color: $portfolio-green;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.text-link {
+    color: $portfolio-green !important;
+    font-size: 12px;
+    text-decoration: none;
+
+    &:hover {
+        color: $portfolio-text !important;
+    }
+}
+
+
+//////////////// 9. SCROLL REVEAL (JS, kalau masih dipakai) ////////////////
+
+.has-reveal .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+
+    &.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal-delay-1 { transition-delay: 100ms; }
+.reveal-delay-2 { transition-delay: 200ms; }
+.reveal-delay-3 { transition-delay: 300ms; }
+
+
+//////////////// 10. NAVBAR ////////////////
+
+.portfolio-navbar {
+    position: sticky !important;
+    top: 16px;
+    z-index: 1000;
+
+    width: calc(100% - 48px);
+    max-width: 1120px !important;
+    height: auto !important;
+
+    margin: 16px auto 0 !important;
+    padding: 0 !important;
+
+    border: none !important;
+    background: transparent !important;
+
+    .menu {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        min-height: 68px;
+        padding: 0 26px;
+
+        background: rgba(19, 25, 23, 0.88);
+        border: 1px solid rgba($portfolio-green, 0.12);
+        border-radius: 18px;
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .portfolio-brand {
+        float: none;
+        margin: 0;
+        padding: 0;
+
+        color: $portfolio-text;
+        font-family: 'Inter', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        text-decoration: none;
+
+        span {
+            color: $portfolio-green;
+        }
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .trigger {
+        float: none;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .trigger-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    li {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .menu-link {
+        position: relative;
+        display: inline-block;
+        padding: 8px 12px;
+
+        color: #A7B0AA !important;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-decoration: none;
+        opacity: 1 !important;
+        transition: color 0.25s ease;
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 2px;
+            left: 12px;
+            width: 0;
+            height: 2px;
+            background: $portfolio-green;
+            transition: width 0.25s ease;
+        }
+
+        &:hover,
+        &.active {
+            color: $portfolio-green !important;
+        }
+
+        &:hover::after,
+        &.active::after {
+            width: calc(100% - 24px);
+        }
+    }
+
+    .portfolio-github {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #D5DDD7;
+        transition: color 0.25s ease, transform 0.25s ease;
+
+        svg {
+            width: 21px;
+            height: 21px;
+        }
+
+        &:hover {
+            color: $portfolio-green;
+            transform: translateY(-2px);
+        }
+    }
+
+    .portfolio-theme-toggle {
+        display: flex;
+        align-items: center;
+        padding-left: 18px;
+        border-left: 1px solid #344139;
+
+        a#mode {
+            position: static;
+            display: flex;
+            align-items: center;
+            opacity: 1;
+        }
+    }
+
+    // Hamburger disembunyikan di desktop
+    .menu-trigger,
+    .portfolio-menu-toggle {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .portfolio-navbar {
+        width: calc(100% - 28px);
+        top: 10px;
+        margin-top: 10px !important;
+
+        .menu {
+            position: relative !important;
+            min-height: 60px;
+            height: auto !important;
+            padding: 0 18px;
+            background: rgba(19, 25, 23, 0.95);
+            border: 1px solid rgba($portfolio-green, 0.15);
+            border-radius: 15px;
+            text-align: left;
+        }
+
+        .portfolio-brand {
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+
+        .portfolio-menu-toggle {
+            display: block;
+            position: absolute;
+            right: 18px;
+            top: 17px;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .menu-icon {
+            display: block;
+            position: static;
+            margin: 0;
+
+            svg {
+                stroke: $portfolio-green;
+            }
+        }
+
+        // Panel dropdown
+        .trigger {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            right: 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 16px;
+            padding: 20px;
+
+            background: #131917;
+            border: 1px solid #344139;
+            border-radius: 15px;
+
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+        }
+
+        .trigger-container {
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
+        }
+
+        li {
+            display: block;
+            width: 100%;
+        }
+
+        .menu-link {
+            display: block;
+            width: 100%;
+            padding: 10px 12px;
+        }
+
+        .portfolio-github {
+            padding: 8px 12px;
+            justify-content: flex-start;
+        }
+
+        .portfolio-theme-toggle {
+            padding: 12px 12px 0;
+            border-left: none;
+            border-top: 1px solid #344139;
+        }
+
+        input.menu-trigger:checked ~ .trigger {
+            width: auto;
+            height: auto;
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            animation: none;
+            -webkit-animation: none;
+        }
+    }
+}
+
+
+//////////////// 11. FOOTER (override theme Hugo) ////////////////
+
+.footer,
+footer.footer,
+body footer {
+    position: static !important;
+    inset: auto !important;
+    float: none !important;
+
+    width: 100% !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+
+    margin-top: 0 !important;
+    padding: 25px 20px !important;
+
+    text-align: center !important;
+    background: transparent !important;
+    transform: none !important;
+    z-index: auto !important;
+}
+
+
+//////////////// 12. KEYFRAMES ////////////////
+
+@keyframes hero-enter {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes terminal-enter {
+    from { opacity: 0; transform: translateX(25px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes reveal-up {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes status-pulse {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 10px rgba($portfolio-green, 0.7);
+    }
+    50% {
+        opacity: 0.45;
+        box-shadow: 0 0 3px rgba($portfolio-green, 0.3);
+    }
+}
+
+@keyframes cursor-blink {
+    to { visibility: hidden; }
+}
+
+
+//////////////// 13. RESPONSIVE ////////////////
+
+@media screen and (max-width: 900px) {
+
+    .hero-section {
+        grid-template-columns: 1fr;
+        gap: 45px;
+        margin-bottom: 80px;
+    }
+
+    .hero-terminal {
+        max-width: 600px;
+    }
+
+    .focus-grid,
+    .articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tech-section,
+    .focus-section {
+        margin-bottom: 80px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .portfolio-wrapper {
+        width: calc(100% - 36px);
+        padding-top: 65px;
+    }
+
+    .hero-section {
+        gap: 35px;
+        min-height: auto;
+    }
+
+    .hero-content h1 {
+        font-size: 45px;
+        letter-spacing: -2px;
+    }
+
+    .hero-role        { font-size: 21px; }
+    .hero-description { font-size: 13px; }
+    .hero-social      { font-size: 8px; }
+
+    .terminal-header {
+        padding: 13px;
+        font-size: 9px;
+    }
+
+    .terminal-body {
+        padding: 18px 14px;
+        font-size: 10px;
+    }
+
+    .terminal-footer {
+        font-size: 8px;
+    }
+
+    .section-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .focus-grid,
+    .articles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .focus-card {
+        min-height: 190px;
+    }
+
+    .tech-section {
+        padding: 30px 0;
+    }
+
+    .tech-item {
+        font-size: 10px;
+    }
+
+    .has-reveal .reveal {
+        transform: translateY(16px);
+    }
+}
+
+
+//////////////// 14. ACCESSIBILITY ////////////////
+
+@media (prefers-reduced-motion: reduce) {
+    .portfolio-wrapper,
+    .portfolio-wrapper *,
+    .portfolio-wrapper *::before,
+    .portfolio-wrapper *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .has-reveal .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/* Stagger animation - Technical Focus */
+.has-reveal .focus-grid .focus-card.reveal:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.has-reveal .focus-grid .focus-card.reveal:nth-child(2) {
+    transition-delay: 0.3s;
+}
+
+.has-reveal .focus-grid .focus-card.reveal:nth-child(3) {
+    transition-delay: 0.5s;
+}
+
+/* Stagger animation - Latest Articles */
+.has-reveal .articles-grid .article-card.reveal:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.has-reveal .articles-grid .article-card.reveal:nth-child(2) {
+    transition-delay: 0.3s;
+}
+
+.has-reveal .articles-grid .article-card.reveal:nth-child(3) {
+    transition-delay: 0.5s;
+}

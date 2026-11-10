@@ -89,3 +89,6 @@ $on-widescreen: 1152px;
 {{ with .Site.Params.goToTop }}
 @import "goToTop";
 {{ end }}
+
+//////////////// 6. Custom Portfolio /////////////////
+@import "portfolio";

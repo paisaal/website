@@ -1,46 +1,67 @@
-<div class="navbar" role="navigation">
+
+<div class="navbar portfolio-navbar" role="navigation">
     <nav class="menu" aria-label="Main Navigation">
-        <a href="{{ .Site.Home.Permalink }}" class="logo" aria-label="Home">
-            {{ partial "svgs/home.svg" (dict "height" 25 "width" 25) . }}
+
+        <!-- BRAND -->
+        <a href="{{ .Site.Home.Permalink }}"
+           class="logo portfolio-brand"
+           aria-label="Home">
+            NF<span>.</span>
         </a>
-        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
-        <label for="menu-trigger">
+
+        <!-- MOBILE MENU -->
+        <input type="checkbox"
+               id="menu-trigger"
+               class="menu-trigger" />
+
+        <label for="menu-trigger" class="portfolio-menu-toggle">
             <span class="menu-icon">
                 {{ partial "svgs/menu.svg" (dict "height" 25 "width" 25) . }}
             </span>
         </label>
 
+        <!-- NAVIGATION LINKS -->
         <div class="trigger">
+
             <ul class="trigger-container">
+
                 {{ $currentPage := . }}
+
                 {{ range .Site.Menus.main }}
-                <li>
-                    <a class="menu-link {{ if or ($currentPage.IsMenuCurrent " main" .)
-                        ($currentPage.HasMenuCurrent "main" .) }}active{{ end }}" href="{{ .URL }}">
-                        {{ .Name }}
-                    </a>
-                    {{ if .HasChildren }}
-                    <ul>
-                        {{ range .Children }}
-                        <li>
-                            <a class="menu-link {{ if $currentPage.IsMenuCurrent " main" . }}active{{ end }}"
-                                href="{{ .URL }}">
-                                {{ .Name }}
-                            </a>
-                        </li>
-                        {{ end }}
-                    </ul>
-                    {{ end }}
-                </li>
+                    <li>
+                        <a class="menu-link {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{ end }}"
+                           href="{{ .URL }}">
+                            {{ .Name }}
+                        </a>
+                    </li>
                 {{ end }}
-                <li class="menu-separator">
-                    <span>|</span>
-                </li>
+
             </ul>
-            <a id="mode" href="#" aria-label="Toggle light/dark mode" role="button">
-                {{ partial "svgs/sun.svg" (dict "height" 21 "width" 21 "class" "mode-sunny" "title" "LIGHT") . }}
-                {{ partial "svgs/sun.svg" (dict "height" 21 "width" 21 "class" "mode-moon" "title" "DARK") . }}
+
+            <!-- GITHUB -->
+            <a href="https://github.com/paisaal"
+               class="portfolio-github"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="GitHub">
+                {{ partial "svgs/github.svg" (dict "height" 21 "width" 21) . }}
             </a>
+
+            <!-- THEME TOGGLE -->
+            <div class="portfolio-theme-toggle">
+                <a id="mode"
+                   href="#"
+                   aria-label="Toggle light/dark mode"
+                   role="button">
+
+                    {{ partial "svgs/sun.svg" (dict "height" 21 "width" 21 "class" "mode-sunny" "title" "LIGHT") . }}
+
+                    {{ partial "svgs/sun.svg" (dict "height" 21 "width" 21 "class" "mode-moon" "title" "DARK") . }}
+
+                </a>
+            </div>
+
         </div>
+
     </nav>
 </div>
