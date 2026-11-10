@@ -74,16 +74,16 @@
                     <span class="terminal-menu">•••</span>
                 </div>
 
-                <div class="terminal-body" data-terminal>
+                <div class="terminal-body">
 
                     <!-- COMMAND 1 -->
                     <p class="terminal-line">
                         <span class="terminal-user">nurfaisal@server</span>
                         <span class="terminal-path">:~$</span>
-                        <span class="terminal-command" data-terminal-command data-text="whoami">whoami</span>
+                        <span class="terminal-command" data-text="whoami">whoami</span>
                     </p>
 
-                    <p class="terminal-output terminal-result" data-terminal-output>
+                    <p class="terminal-output terminal-result">
                         Infrastructure Engineer
                     </p>
 
@@ -91,16 +91,16 @@
                     <p class="terminal-line">
                         <span class="terminal-user">nurfaisal@server</span>
                         <span class="terminal-path">:~$</span>
-                        <span class="terminal-command" data-terminal-command data-text="cat skills.txt">cat skills.txt</span>
+                        <span class="terminal-command" data-text="cat skills.txt">cat skills.txt</span>
                     </p>
 
                     <!-- SKILLS -->
                     <div class="terminal-output terminal-skills">
-                        <p data-terminal-skill>Linux Administration</p>
-                        <p data-terminal-skill>Enterprise Server Operations</p>
-                        <p data-terminal-skill>Infrastructure Monitoring</p>
-                        <p data-terminal-skill>Docker &amp; Containerization</p>
-                        <p data-terminal-skill>Automation &amp; DevOps</p>
+                        <p>Linux Administration</p>
+                        <p>Enterprise Server Operations</p>
+                        <p>Infrastructure Monitoring</p>
+                        <p>Docker &amp; Containerization</p>
+                        <p>Automation &amp; DevOps</p>
                     </div>
 
                     <!-- FINAL PROMPT -->
@@ -160,7 +160,7 @@
 
             <div class="focus-grid">
 
-                <article class="focus-card reveal reveal-delay-1">
+                <article class="focus-card reveal">
                     <span class="focus-number">01 / SYSTEMS</span>
                     <h3>Linux Administration</h3>
                     <p>
@@ -170,7 +170,7 @@
                     <span class="focus-icon">⌘</span>
                 </article>
 
-                <article class="focus-card reveal reveal-delay-2">
+                <article class="focus-card reveal">
                     <span class="focus-number">02 / MONITORING</span>
                     <h3>Infrastructure Monitoring</h3>
                     <p>
@@ -180,7 +180,7 @@
                     <span class="focus-icon">⌁</span>
                 </article>
 
-                <article class="focus-card reveal reveal-delay-3">
+                <article class="focus-card reveal">
                     <span class="focus-number">03 / AUTOMATION</span>
                     <h3>DevOps & Automation</h3>
                     <p>
@@ -216,10 +216,9 @@
 
                 {{ $posts := where .Site.RegularPages "Section" "posts" }}
 
-                {{ range $index, $post := first 3 ($posts.ByDate.Reverse) }}
+                {{ range first 3 ($posts.ByDate.Reverse) }}
 
-                    <a href="{{ .RelPermalink }}"
-                        class="article-card reveal reveal-delay-{{ add $index 1 }}">
+                    <a href="{{ .RelPermalink }}" class="article-card reveal">
 
                         <span class="article-date">
                             {{ .Date.Format "02 Jan 2006" }}
@@ -227,7 +226,7 @@
 
                         <h3>{{ .Title }}</h3>
 
-                        <p>{{ .Summary | plainify | truncate 130 }}</p>
+                        <p>{{ .Summary | plainify | htmlUnescape | truncate 130 }}</p>
 
                         <span class="article-link">
                             Read article ↗

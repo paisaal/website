@@ -1,0 +1,549 @@
+diff --git a/gitignore b/.gitignore
+similarity index 82%
+rename from gitignore
+rename to .gitignore
+index 526c385..8c1fa3b 100644
+--- a/gitignore
++++ b/.gitignore
+@@ -1,3 +1,4 @@
+ public/
+ resources/_gen/
+ .hugo_build.lock
++hugo.exe
+diff --git a/assets/sass/portfolio.scss b/assets/sass/portfolio.scss
+index 9e43b9c..66e8b3f 100644
+--- a/assets/sass/portfolio.scss
++++ b/assets/sass/portfolio.scss
+@@ -10,31 +10,7 @@ $portfolio-muted: #929E96;
+ $portfolio-mono: 'JetBrains Mono', monospace;
+ 
+ 
+-//////////////// 2. MIXINS ////////////////
+-
+-// Kasih nomor urut (--i) ke tiap anak: 0, 1, 2, ...
+-@mixin stagger-index($count) {
+-    @for $i from 1 through $count {
+-        &:nth-child(#{$i}) {
+-            --i: #{$i - 1};
+-        }
+-    }
+-}
+-
+-// Muncul saat elemen masuk layar, satu per satu sesuai --i.
+-// $step = jeda antar elemen (dalam % scroll)
+-@mixin reveal-on-scroll($step: 8%) {
+-    @supports (animation-timeline: view()) {
+-        animation: reveal-up ease-out backwards;
+-        animation-timeline: view();
+-        animation-range:
+-            entry calc(var(--i, 0) * #{$step})
+-            entry calc(35% + var(--i, 0) * #{$step});
+-    }
+-}
+-
+-
+-//////////////// 3. BASE ////////////////
++//////////////// 2. BASE ////////////////
+ 
+ html {
+     scroll-behavior: smooth;
+@@ -105,7 +81,7 @@ body > main.portfolio-wrapper {
+ }
+ 
+ 
+-//////////////// 4. HERO ////////////////
++//////////////// 3. HERO ////////////////
+ 
+ .hero-section {
+     display: grid;
+@@ -245,7 +221,7 @@ body > main.portfolio-wrapper {
+ }
+ 
+ 
+-//////////////// 5. TERMINAL ////////////////
++//////////////// 4. TERMINAL ////////////////
+ 
+ .hero-terminal {
+     width: 100%;
+@@ -384,7 +360,7 @@ body > main.portfolio-wrapper {
+ }
+ 
+ 
+-//////////////// 6. TECH STACK ////////////////
++//////////////// 5. TECH STACK ////////////////
+ 
+ .tech-section {
+     padding: 40px 0;
+@@ -410,9 +386,6 @@ body > main.portfolio-wrapper {
+     font-size: 11px;
+     transition: all 0.25s ease;
+ 
+-    @include stagger-index(8);
+-    @include reveal-on-scroll(3%);
+-
+     &:hover {
+         color: $portfolio-green;
+         border-color: $portfolio-green;
+@@ -421,7 +394,7 @@ body > main.portfolio-wrapper {
+ }
+ 
+ 
+-//////////////// 7. TECHNICAL FOCUS ////////////////
++//////////////// 6. TECHNICAL FOCUS ////////////////
+ 
+ .focus-section {
+     margin-bottom: 115px;
+@@ -443,9 +416,6 @@ body > main.portfolio-wrapper {
+     background: $portfolio-surface;
+     transition: all 0.3s ease;
+ 
+-    @include stagger-index(3);
+-    @include reveal-on-scroll(10%);
+-
+     &:hover {
+         transform: translateY(-7px);
+         border-color: rgba($portfolio-green, 0.55);
+@@ -484,7 +454,7 @@ body > main.portfolio-wrapper {
+ }
+ 
+ 
+-//////////////// 8. LATEST ARTICLES ////////////////
++//////////////// 7. LATEST ARTICLES ////////////////
+ 
+ .articles-section {
+     margin-bottom: 0;
+@@ -507,9 +477,6 @@ body > main.portfolio-wrapper {
+     text-decoration: none !important;
+     transition: all 0.3s ease;
+ 
+-    @include stagger-index(3);
+-    @include reveal-on-scroll(10%);
+-
+     &:hover {
+         transform: translateY(-5px);
+         border-color: $portfolio-green;
+@@ -555,25 +522,28 @@ body > main.portfolio-wrapper {
+ }
+ 
+ 
+-//////////////// 9. SCROLL REVEAL (JS, kalau masih dipakai) ////////////////
++//////////////// 8. SCROLL REVEAL ////////////////
++// assets/js/terminal.js menambah .has-reveal di <html>, lalu .is-visible
++// saat elemen masuk layar. Pakai animation (bukan transition) supaya efek
++// hover (transform) pada kartu tetap jalan setelah animasi selesai.
+ 
+ .has-reveal .reveal {
+     opacity: 0;
+-    transform: translateY(24px);
+-    transition: opacity 0.6s ease, transform 0.6s ease;
+ 
+     &.is-visible {
+         opacity: 1;
+-        transform: translateY(0);
++        animation: reveal-up 0.6s ease-out backwards;
++        animation-delay: var(--reveal-delay, 0s);
+     }
+ }
+ 
+-.reveal-delay-1 { transition-delay: 100ms; }
+-.reveal-delay-2 { transition-delay: 200ms; }
+-.reveal-delay-3 { transition-delay: 300ms; }
++// Jeda antar kartu dalam satu baris, supaya muncul satu per satu
++.focus-card:nth-child(1), .article-card:nth-child(1) { --reveal-delay: 0.1s; }
++.focus-card:nth-child(2), .article-card:nth-child(2) { --reveal-delay: 0.3s; }
++.focus-card:nth-child(3), .article-card:nth-child(3) { --reveal-delay: 0.5s; }
+ 
+ 
+-//////////////// 10. NAVBAR ////////////////
++//////////////// 9. NAVBAR ////////////////
+ 
+ .portfolio-navbar {
+     position: sticky !important;
+@@ -830,7 +800,7 @@ body > main.portfolio-wrapper {
+ }
+ 
+ 
+-//////////////// 11. FOOTER (override theme Hugo) ////////////////
++//////////////// 10. FOOTER (override theme Hugo) ////////////////
+ 
+ .footer,
+ footer.footer,
+@@ -853,7 +823,7 @@ body footer {
+ }
+ 
+ 
+-//////////////// 12. KEYFRAMES ////////////////
++//////////////// 11. KEYFRAMES ////////////////
+ 
+ @keyframes hero-enter {
+     from { opacity: 0; transform: translateY(25px); }
+@@ -886,7 +856,7 @@ body footer {
+ }
+ 
+ 
+-//////////////// 13. RESPONSIVE ////////////////
++//////////////// 12. RESPONSIVE ////////////////
+ 
+ @media screen and (max-width: 900px) {
+ 
+@@ -909,6 +879,12 @@ body footer {
+     .focus-section {
+         margin-bottom: 80px;
+     }
++
++    // Kartu ke-3 pindah ke baris baru, nggak perlu nunggu
++    .focus-card:nth-child(3),
++    .article-card:nth-child(3) {
++        --reveal-delay: 0.1s;
++    }
+ }
+ 
+ @media screen and (max-width: 600px) {
+@@ -969,13 +945,15 @@ body footer {
+         font-size: 10px;
+     }
+ 
+-    .has-reveal .reveal {
+-        transform: translateY(16px);
++    // 1 kolom: tiap kartu muncul saat discroll, tanpa jeda tambahan
++    .focus-card:nth-child(n),
++    .article-card:nth-child(n) {
++        --reveal-delay: 0s;
+     }
+ }
+ 
+ 
+-//////////////// 14. ACCESSIBILITY ////////////////
++//////////////// 13. ACCESSIBILITY ////////////////
+ 
+ @media (prefers-reduced-motion: reduce) {
+     .portfolio-wrapper,
+@@ -989,33 +967,6 @@ body footer {
+ 
+     .has-reveal .reveal {
+         opacity: 1;
+-        transform: none;
+     }
+ }
+ 
+-
+-/* Stagger animation - Technical Focus */
+-.has-reveal .focus-grid .focus-card.reveal:nth-child(1) {
+-    transition-delay: 0.1s;
+-}
+-
+-.has-reveal .focus-grid .focus-card.reveal:nth-child(2) {
+-    transition-delay: 0.3s;
+-}
+-
+-.has-reveal .focus-grid .focus-card.reveal:nth-child(3) {
+-    transition-delay: 0.5s;
+-}
+-
+-/* Stagger animation - Latest Articles */
+-.has-reveal .articles-grid .article-card.reveal:nth-child(1) {
+-    transition-delay: 0.1s;
+-}
+-
+-.has-reveal .articles-grid .article-card.reveal:nth-child(2) {
+-    transition-delay: 0.3s;
+-}
+-
+-.has-reveal .articles-grid .article-card.reveal:nth-child(3) {
+-    transition-delay: 0.5s;
+-}
+diff --git a/config.toml b/config.toml
+index 6be97f3..ed7ac74 100644
+--- a/config.toml
++++ b/config.toml
+@@ -35,9 +35,7 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
+ 		ordered = false # generates <ul> instead of <ol>
+ 
+ [menu]
+-  [[menu.main]]
+-    # The page reference (pageRef) is useful for menu highlighting
+-    # When pageRef is set, setting `url` is optional; it will be used as a fallback if the page is not found.
++  # pageRef dipakai untuk highlight menu aktif; `url` jadi fallback kalau page nggak ketemu.
+   [[menu.main]]
+     pageRef="about"
+     name = 'About'
+@@ -56,6 +54,7 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
+   # Setting it to 'auto' applies the color scheme based on the visitor's device color preference.If you don't specify anything, ignore this parameter, or leave it blank,
+   # the default value is set to 'auto'.
+   # You can take a look at layouts/index.html for more information.
++  homeTitle = "Muhammad Nurfaisal | Infrastructure & System Engineer" # <title> khusus homepage
+   description = "Personal blog & portfolio of Muhammad Nurfaisal — Infrastructure & System Engineer from Bogor, Indonesia."
+   #mainSections = ['posts']
+   toc = false # set to false to disable table of contents 'globally'
+@@ -79,13 +78,13 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
+   name = "Nurfaisal" # will use "params.sitename" or "title" by default
+   short_name = "Nurfaisal" # same as name
+   start_url = "/" # will use homepage url by default
+-  theme_color = "#434648" # default is "#434648" (base color of text). Also will override html `<meta name="theme-color" />`
++  theme_color = "#0B0F0E" # sama dengan $portfolio-bg; juga override <meta name="theme-color">
+   background_color = "auto" # by default depend on "params.defaultColor" for "light" or "auto" will be set to "#fff" for dark will be "#131418" (color of dark mode background)
+   display = "standalone"
+ 
+ # Allow to override `browserconfig.xml` params (configuration for windows embeded browsers)
+ [params.browserconfig]
+-  TileColor = "#191970" # default windows 10 blue tile color
++  TileColor = "#0B0F0E" # warna tile Windows, samakan dengan background
+ 
+ [[params.socialIcons]]
+ name = "github"
+diff --git a/layouts/index.html b/layouts/index.html
+index ca0b34d..26d8242 100644
+--- a/layouts/index.html
++++ b/layouts/index.html
+@@ -74,16 +74,16 @@
+                     <span class="terminal-menu">•••</span>
+                 </div>
+ 
+-                <div class="terminal-body" data-terminal>
++                <div class="terminal-body">
+ 
+                     <!-- COMMAND 1 -->
+                     <p class="terminal-line">
+                         <span class="terminal-user">nurfaisal@server</span>
+                         <span class="terminal-path">:~$</span>
+-                        <span class="terminal-command" data-terminal-command data-text="whoami">whoami</span>
++                        <span class="terminal-command" data-text="whoami">whoami</span>
+                     </p>
+ 
+-                    <p class="terminal-output terminal-result" data-terminal-output>
++                    <p class="terminal-output terminal-result">
+                         Infrastructure Engineer
+                     </p>
+ 
+@@ -91,16 +91,16 @@
+                     <p class="terminal-line">
+                         <span class="terminal-user">nurfaisal@server</span>
+                         <span class="terminal-path">:~$</span>
+-                        <span class="terminal-command" data-terminal-command data-text="cat skills.txt">cat skills.txt</span>
++                        <span class="terminal-command" data-text="cat skills.txt">cat skills.txt</span>
+                     </p>
+ 
+                     <!-- SKILLS -->
+                     <div class="terminal-output terminal-skills">
+-                        <p data-terminal-skill>Linux Administration</p>
+-                        <p data-terminal-skill>Enterprise Server Operations</p>
+-                        <p data-terminal-skill>Infrastructure Monitoring</p>
+-                        <p data-terminal-skill>Docker &amp; Containerization</p>
+-                        <p data-terminal-skill>Automation &amp; DevOps</p>
++                        <p>Linux Administration</p>
++                        <p>Enterprise Server Operations</p>
++                        <p>Infrastructure Monitoring</p>
++                        <p>Docker &amp; Containerization</p>
++                        <p>Automation &amp; DevOps</p>
+                     </div>
+ 
+                     <!-- FINAL PROMPT -->
+@@ -160,7 +160,7 @@
+ 
+             <div class="focus-grid">
+ 
+-                <article class="focus-card reveal reveal-delay-1">
++                <article class="focus-card reveal">
+                     <span class="focus-number">01 / SYSTEMS</span>
+                     <h3>Linux Administration</h3>
+                     <p>
+@@ -170,7 +170,7 @@
+                     <span class="focus-icon">⌘</span>
+                 </article>
+ 
+-                <article class="focus-card reveal reveal-delay-2">
++                <article class="focus-card reveal">
+                     <span class="focus-number">02 / MONITORING</span>
+                     <h3>Infrastructure Monitoring</h3>
+                     <p>
+@@ -180,7 +180,7 @@
+                     <span class="focus-icon">⌁</span>
+                 </article>
+ 
+-                <article class="focus-card reveal reveal-delay-3">
++                <article class="focus-card reveal">
+                     <span class="focus-number">03 / AUTOMATION</span>
+                     <h3>DevOps & Automation</h3>
+                     <p>
+@@ -216,10 +216,9 @@
+ 
+                 {{ $posts := where .Site.RegularPages "Section" "posts" }}
+ 
+-                {{ range $index, $post := first 3 ($posts.ByDate.Reverse) }}
++                {{ range first 3 ($posts.ByDate.Reverse) }}
+ 
+-                    <a href="{{ .RelPermalink }}"
+-                        class="article-card reveal reveal-delay-{{ add $index 1 }}">
++                    <a href="{{ .RelPermalink }}" class="article-card reveal">
+ 
+                         <span class="article-date">
+                             {{ .Date.Format "02 Jan 2006" }}
+@@ -227,7 +226,7 @@
+ 
+                         <h3>{{ .Title }}</h3>
+ 
+-                        <p>{{ .Summary | plainify | truncate 130 }}</p>
++                        <p>{{ .Summary | plainify | htmlUnescape | truncate 130 }}</p>
+ 
+                         <span class="article-link">
+                             Read article ↗
+diff --git a/layouts/partials/meta/post.html b/layouts/partials/meta/post.html
+new file mode 100644
+index 0000000..b0ec658
+--- /dev/null
++++ b/layouts/partials/meta/post.html
+@@ -0,0 +1,58 @@
++{{/*  These meta tags are rendered only in the posts section (i.e. in single/list page)  */}}
++{{ if eq .Section "posts" }}
++    {{ $ISO_date := dateFormat "2006-01-02T15:04:05Z0700" .Date | safeHTML }}
++    <!-- Pagination meta tags for list pages only -->
++    {{ $paginator := .Paginate (where .Pages "Section" "blog") }}
++    {{ if $paginator }}
++    <link rel="first" href="{{ $paginator.First.URL }}" />
++    <link rel="last" href="{{ $paginator.Last.URL }}" />
++    {{ if $paginator.HasPrev }}
++    <link rel="prev" href="{{ $paginator.Prev.URL }}" />
++    {{end }}
++    {{ if $paginator.HasNext }}
++    <link rel="next" href="{{ $paginator.Next.URL }}" />
++    {{end }}
++    {{end }}
++
++    <meta property="og:type" content="article" />
++    <meta property="og:article:published_time" content={{ $ISO_date | safeHTML }} />
++    <meta property="article:published_time" content={{ $ISO_date | safeHTML }} />
++
++    {{ with.Params.author }}
++    <meta property="og:article:author" content="{{humanize . }}" />
++    <meta property="article:author" content="{{humanize . }}" />
++    <meta name="author" content="{{humanize . }}" />
++    {{ end }}
++
++    {{ with.Params.category }}
++    <meta name="news_keywords" content="{{ index . 0 }}" />
++    <meta property="article:section" content="{{ index . 0 }}" />
++    {{ end }}
++
++    {{/*  Data JSON-LD: versi theme mengisi author/description/image dengan nilai kosong  */}}
++    {{- $author := .Params.author | default .Site.Params.author.name -}}
++    {{- $desc := .Params.description | default .Site.Params.description -}}
++    {{- $img := (.Params.image | default .Site.Params.ogimage) | absURL -}}
++    {{- $siteName := .Site.Params.sitename | default .Site.Title -}}
++    <script defer type="application/ld+json">
++    {
++        "@context": "https://schema.org",
++        "@type": "Article",
++        "headline": {{ .Title }},
++        "author": {
++            "@type": "Person",
++            "name": {{ $author }}
++        },
++        "datePublished": "{{ dateFormat "2006-01-02" .Date }}",
++        "description": {{ $desc }},
++        "wordCount": {{ .WordCount }},
++        "mainEntityOfPage": {{ .Permalink }},
++        "dateModified": "{{ dateFormat "2006-01-02" .Lastmod }}",
++        "image": {{ $img }},
++        "publisher": {
++            "@type": "Organization",
++            "name": {{ $siteName }}
++        }
++    }
++    </script>
++{{ end }}
+diff --git a/layouts/partials/meta/standard.html b/layouts/partials/meta/standard.html
+new file mode 100644
+index 0000000..7fbabdd
+--- /dev/null
++++ b/layouts/partials/meta/standard.html
+@@ -0,0 +1,69 @@
++<meta charset="utf-8">
++<meta http-equiv="content-type" content="text/html">
++<meta name="viewport" content="width=device-width, initial-scale=1.0">
++
++{{/*
++  Override dari theme hugo-blog-awesome (meta/standard.html).
++  Beda dengan versi theme:
++  - Homepage pakai params.homeTitle (sebelumnya jadi "X | X" karena .Title == .Site.Title)
++  - Halaman lain: "<judul> | <sitename>" (pakai nama singkat, bukan title situs yang panjang)
++  - og:url, og:type (halaman non-posts), twitter:card
++  - og:locale diformat en_US (bukan en-us)
++*/}}
++{{- $siteName := .Site.Params.sitename | default .Site.Title -}}
++{{- $pageTitle := printf "%s | %s" .Title $siteName -}}
++{{- if .IsHome -}}
++  {{- $pageTitle = .Site.Params.homeTitle | default .Site.Title -}}
++{{- end -}}
++
++<title itemprop="name">{{ $pageTitle }}</title>
++<meta property="og:title" content="{{ $pageTitle }}" />
++<meta name="twitter:title" content="{{ $pageTitle }}" />
++<meta itemprop="name" content="{{ $pageTitle }}" />
++<meta name="application-name" content="{{ $pageTitle }}" />
++<meta property="og:site_name" content="{{ $siteName }}" />
++<meta property="og:url" content="{{ .Permalink }}" />
++{{- if ne .Section "posts" }}
++<meta property="og:type" content="website" />
++{{- end }}
++<meta name="twitter:card" content="summary_large_image" />
++
++{{/*  Define empty variable description  */}}
++{{- $description := "" -}}
++
++{{/*  If description is defined in front matter, use it  */}}
++{{- if .Params.description -}}
++  {{- $description = trim .Params.description "\n" -}}
++{{/*  If description is not defined in front matter, use site description  */}}
++{{- else if .Site.Params.description -}}
++  {{- $description = trim .Site.Params.description "\n" -}}
++{{- end -}}
++
++<meta name="description" content="{{ $description }}">
++<meta itemprop="description" content="{{ $description }}" />
++<meta property="og:description" content="{{ $description }}" />
++<meta name="twitter:description" content="{{ $description }}" />
++
++{{/*  en-us -> en_US (format yang dipakai Open Graph)  */}}
++{{- $locale := .Site.LanguageCode -}}
++{{- $parts := split $locale "-" -}}
++{{- if eq (len $parts) 2 -}}
++  {{- $locale = printf "%s_%s" (index $parts 0) (upper (index $parts 1)) -}}
++{{- end -}}
++<meta property="og:locale" content="{{ $locale }}" />
++<meta name="language" content="{{ .Site.LanguageCode }}" />
++{{ range .AllTranslations }}
++  <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" title="{{ .Language.LanguageName }}" />
++{{ end }}
++
++{{ with .Params.image }}
++  <meta itemprop="image" content="{{ . | absURL }}" />
++  <meta property="og:image" content="{{ . | absURL }}" />
++  <meta name="twitter:image" content="{{ . | absURL }}" />
++  <meta name="twitter:image:src" content="{{ . | absURL }}" />
++{{ else }}
++  <meta itemprop="image" content="{{ .Site.Params.ogimage | absURL }}" />
++  <meta property="og:image" content="{{ .Site.Params.ogimage | absURL }}" />
++  <meta name="twitter:image" content="{{ .Site.Params.ogimage | absURL }}" />
++  <meta name="twitter:image:src" content="{{ .Site.Params.ogimage | absURL }}" />
++{{ end }}
+diff --git a/netlify.toml b/netlify.toml
+index 72b9037..0c565a4 100644
+--- a/netlify.toml
++++ b/netlify.toml
+@@ -4,7 +4,7 @@
+ [build]
+   base = "/"
+   publish = "/public"
+-  command = "hugo --gc"
++  command = "hugo --gc --minify"
+ 
+ [build.environment]
+   HUGO_VERSION = "0.110.0"
+@@ -13,4 +13,4 @@
+ # Deploy Preview context: all deploys generated from
+ # a pull/merge request will inherit these settings.
+ [context.deploy-preview]
+-command = "hugo --gc"
+\ No newline at end of file
++command = "hugo --gc --minify"
+\ No newline at end of file

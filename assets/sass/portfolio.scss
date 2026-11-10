@@ -10,31 +10,7 @@ $portfolio-muted: #929E96;
 $portfolio-mono: 'JetBrains Mono', monospace;
 
 
-//////////////// 2. MIXINS ////////////////
-
-// Kasih nomor urut (--i) ke tiap anak: 0, 1, 2, ...
-@mixin stagger-index($count) {
-    @for $i from 1 through $count {
-        &:nth-child(#{$i}) {
-            --i: #{$i - 1};
-        }
-    }
-}
-
-// Muncul saat elemen masuk layar, satu per satu sesuai --i.
-// $step = jeda antar elemen (dalam % scroll)
-@mixin reveal-on-scroll($step: 8%) {
-    @supports (animation-timeline: view()) {
-        animation: reveal-up ease-out backwards;
-        animation-timeline: view();
-        animation-range:
-            entry calc(var(--i, 0) * #{$step})
-            entry calc(35% + var(--i, 0) * #{$step});
-    }
-}
-
-
-//////////////// 3. BASE ////////////////
+//////////////// 2. BASE ////////////////
 
 html {
     scroll-behavior: smooth;
@@ -105,7 +81,7 @@ body > main.portfolio-wrapper {
 }
 
 
-//////////////// 4. HERO ////////////////
+//////////////// 3. HERO ////////////////
 
 .hero-section {
     display: grid;
@@ -245,7 +221,7 @@ body > main.portfolio-wrapper {
 }
 
 
-//////////////// 5. TERMINAL ////////////////
+//////////////// 4. TERMINAL ////////////////
 
 .hero-terminal {
     width: 100%;
@@ -384,7 +360,7 @@ body > main.portfolio-wrapper {
 }
 
 
-//////////////// 6. TECH STACK ////////////////
+//////////////// 5. TECH STACK ////////////////
 
 .tech-section {
     padding: 40px 0;
@@ -410,9 +386,6 @@ body > main.portfolio-wrapper {
     font-size: 11px;
     transition: all 0.25s ease;
 
-    @include stagger-index(8);
-    @include reveal-on-scroll(3%);
-
     &:hover {
         color: $portfolio-green;
         border-color: $portfolio-green;
@@ -421,7 +394,7 @@ body > main.portfolio-wrapper {
 }
 
 
-//////////////// 7. TECHNICAL FOCUS ////////////////
+//////////////// 6. TECHNICAL FOCUS ////////////////
 
 .focus-section {
     margin-bottom: 115px;
@@ -442,9 +415,6 @@ body > main.portfolio-wrapper {
     border-radius: 10px;
     background: $portfolio-surface;
     transition: all 0.3s ease;
-
-    @include stagger-index(3);
-    @include reveal-on-scroll(10%);
 
     &:hover {
         transform: translateY(-7px);
@@ -484,7 +454,7 @@ body > main.portfolio-wrapper {
 }
 
 
-//////////////// 8. LATEST ARTICLES ////////////////
+//////////////// 7. LATEST ARTICLES ////////////////
 
 .articles-section {
     margin-bottom: 0;
@@ -506,9 +476,6 @@ body > main.portfolio-wrapper {
     background: $portfolio-surface;
     text-decoration: none !important;
     transition: all 0.3s ease;
-
-    @include stagger-index(3);
-    @include reveal-on-scroll(10%);
 
     &:hover {
         transform: translateY(-5px);
@@ -555,25 +522,28 @@ body > main.portfolio-wrapper {
 }
 
 
-//////////////// 9. SCROLL REVEAL (JS, kalau masih dipakai) ////////////////
+//////////////// 8. SCROLL REVEAL ////////////////
+// assets/js/terminal.js menambah .has-reveal di <html>, lalu .is-visible
+// saat elemen masuk layar. Pakai animation (bukan transition) supaya efek
+// hover (transform) pada kartu tetap jalan setelah animasi selesai.
 
 .has-reveal .reveal {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
 
     &.is-visible {
         opacity: 1;
-        transform: translateY(0);
+        animation: reveal-up 0.6s ease-out backwards;
+        animation-delay: var(--reveal-delay, 0s);
     }
 }
 
-.reveal-delay-1 { transition-delay: 100ms; }
-.reveal-delay-2 { transition-delay: 200ms; }
-.reveal-delay-3 { transition-delay: 300ms; }
+// Jeda antar kartu dalam satu baris, supaya muncul satu per satu
+.focus-card:nth-child(1), .article-card:nth-child(1) { --reveal-delay: 0.1s; }
+.focus-card:nth-child(2), .article-card:nth-child(2) { --reveal-delay: 0.3s; }
+.focus-card:nth-child(3), .article-card:nth-child(3) { --reveal-delay: 0.5s; }
 
 
-//////////////// 10. NAVBAR ////////////////
+//////////////// 9. NAVBAR ////////////////
 
 .portfolio-navbar {
     position: sticky !important;
@@ -830,7 +800,7 @@ body > main.portfolio-wrapper {
 }
 
 
-//////////////// 11. FOOTER (override theme Hugo) ////////////////
+//////////////// 10. FOOTER (override theme Hugo) ////////////////
 
 .footer,
 footer.footer,
@@ -853,7 +823,7 @@ body footer {
 }
 
 
-//////////////// 12. KEYFRAMES ////////////////
+//////////////// 11. KEYFRAMES ////////////////
 
 @keyframes hero-enter {
     from { opacity: 0; transform: translateY(25px); }
@@ -886,7 +856,7 @@ body footer {
 }
 
 
-//////////////// 13. RESPONSIVE ////////////////
+//////////////// 12. RESPONSIVE ////////////////
 
 @media screen and (max-width: 900px) {
 
@@ -908,6 +878,12 @@ body footer {
     .tech-section,
     .focus-section {
         margin-bottom: 80px;
+    }
+
+    // Kartu ke-3 pindah ke baris baru, nggak perlu nunggu
+    .focus-card:nth-child(3),
+    .article-card:nth-child(3) {
+        --reveal-delay: 0.1s;
     }
 }
 
@@ -969,13 +945,15 @@ body footer {
         font-size: 10px;
     }
 
-    .has-reveal .reveal {
-        transform: translateY(16px);
+    // 1 kolom: tiap kartu muncul saat discroll, tanpa jeda tambahan
+    .focus-card:nth-child(n),
+    .article-card:nth-child(n) {
+        --reveal-delay: 0s;
     }
 }
 
 
-//////////////// 14. ACCESSIBILITY ////////////////
+//////////////// 13. ACCESSIBILITY ////////////////
 
 @media (prefers-reduced-motion: reduce) {
     .portfolio-wrapper,
@@ -989,33 +967,6 @@ body footer {
 
     .has-reveal .reveal {
         opacity: 1;
-        transform: none;
     }
 }
 
-
-/* Stagger animation - Technical Focus */
-.has-reveal .focus-grid .focus-card.reveal:nth-child(1) {
-    transition-delay: 0.1s;
-}
-
-.has-reveal .focus-grid .focus-card.reveal:nth-child(2) {
-    transition-delay: 0.3s;
-}
-
-.has-reveal .focus-grid .focus-card.reveal:nth-child(3) {
-    transition-delay: 0.5s;
-}
-
-/* Stagger animation - Latest Articles */
-.has-reveal .articles-grid .article-card.reveal:nth-child(1) {
-    transition-delay: 0.1s;
-}
-
-.has-reveal .articles-grid .article-card.reveal:nth-child(2) {
-    transition-delay: 0.3s;
-}
-
-.has-reveal .articles-grid .article-card.reveal:nth-child(3) {
-    transition-delay: 0.5s;
-}

@@ -35,9 +35,7 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
 		ordered = false # generates <ul> instead of <ol>
 
 [menu]
-  [[menu.main]]
-    # The page reference (pageRef) is useful for menu highlighting
-    # When pageRef is set, setting `url` is optional; it will be used as a fallback if the page is not found.
+  # pageRef dipakai untuk highlight menu aktif; `url` jadi fallback kalau page nggak ketemu.
   [[menu.main]]
     pageRef="about"
     name = 'About'
@@ -56,6 +54,7 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
   # Setting it to 'auto' applies the color scheme based on the visitor's device color preference.If you don't specify anything, ignore this parameter, or leave it blank,
   # the default value is set to 'auto'.
   # You can take a look at layouts/index.html for more information.
+  homeTitle = "Muhammad Nurfaisal | Infrastructure & System Engineer" # <title> khusus homepage
   description = "Personal blog & portfolio of Muhammad Nurfaisal — Infrastructure & System Engineer from Bogor, Indonesia."
   #mainSections = ['posts']
   toc = false # set to false to disable table of contents 'globally'
@@ -79,13 +78,13 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
   name = "Nurfaisal" # will use "params.sitename" or "title" by default
   short_name = "Nurfaisal" # same as name
   start_url = "/" # will use homepage url by default
-  theme_color = "#434648" # default is "#434648" (base color of text). Also will override html `<meta name="theme-color" />`
+  theme_color = "#0B0F0E" # sama dengan $portfolio-bg; juga override <meta name="theme-color">
   background_color = "auto" # by default depend on "params.defaultColor" for "light" or "auto" will be set to "#fff" for dark will be "#131418" (color of dark mode background)
   display = "standalone"
 
 # Allow to override `browserconfig.xml` params (configuration for windows embeded browsers)
 [params.browserconfig]
-  TileColor = "#191970" # default windows 10 blue tile color
+  TileColor = "#0B0F0E" # warna tile Windows, samakan dengan background
 
 [[params.socialIcons]]
 name = "github"
