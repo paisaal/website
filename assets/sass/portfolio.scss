@@ -1,0 +1,875 @@
+//////////////// 1. DESIGN SYSTEM ////////////////
+
+$portfolio-bg: #0B0F0E;
+$portfolio-surface: #121916;
+$portfolio-card: #151E19;
+$portfolio-border: #26332B;
+$portfolio-green: #B5F36B;
+$portfolio-text: #F1F5F2;
+$portfolio-muted: #929E96;
+
+// LIGHT MODE TOKENS
+$portfolio-light-bg: #F4F6F3;
+$portfolio-light-surface: #FFFFFF;
+$portfolio-light-card: #E8EEE8;
+$portfolio-light-border: #DCE5DC;
+$portfolio-light-green: #285C35;
+$portfolio-light-text: #26332B;
+$portfolio-light-muted: #64736A;
+
+$portfolio-mono: 'JetBrains Mono', monospace;
+
+
+
+//////////////// 2. BASE ////////////////
+
+html {
+    scroll-behavior: smooth;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+// Background custom cuma untuk dark mode
+html.dark body {
+    background-color: $portfolio-bg;
+    color: $portfolio-text;
+}
+
+.portfolio-wrapper {
+    width: calc(100% - 48px);
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 100px 0 20px;
+}
+
+body > main.portfolio-wrapper {
+    flex: 1 0 auto !important;
+}
+
+.portfolio-wrapper .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: $portfolio-muted;
+    font-family: $portfolio-mono;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    margin-bottom: 28px;
+
+    span {
+        color: $portfolio-green;
+    }
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    margin-bottom: 35px;
+
+    h2 {
+        color: $portfolio-text;
+        font-size: clamp(28px, 4vw, 38px);
+        font-weight: 750;
+        letter-spacing: -1.5px;
+        margin: 0;
+    }
+
+    > p {
+        max-width: 350px;
+        color: $portfolio-muted;
+        font-size: 13px;
+        line-height: 1.8;
+        margin-bottom: 4px;
+    }
+}
+
+
+//////////////// 3. HERO ////////////////
+
+.hero-section {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 65px;
+    min-height: 460px;
+    margin-bottom: 115px;
+}
+
+.hero-content {
+    animation: hero-enter 0.8s ease both;
+}
+
+.hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    margin-bottom: 28px;
+    border: 1px solid rgba($portfolio-green, 0.25);
+    border-radius: 50px;
+    color: $portfolio-green;
+    background: rgba($portfolio-green, 0.06);
+    font-family: $portfolio-mono;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $portfolio-green;
+    box-shadow: 0 0 12px rgba($portfolio-green, 0.7);
+    animation: status-pulse 2s infinite;
+}
+
+.hero-greeting {
+    color: $portfolio-muted;
+    font-family: $portfolio-mono;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.hero-content h1 {
+    color: $portfolio-text;
+    font-size: clamp(42px, 6vw, 68px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -3px;
+    margin: 0 0 22px;
+}
+
+.hero-highlight {
+    color: $portfolio-green;
+}
+
+.hero-role {
+    max-width: 520px;
+    color: $portfolio-text;
+    font-size: clamp(20px, 2.5vw, 27px);
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 18px;
+
+    span {
+        color: $portfolio-green;
+    }
+}
+
+.hero-description {
+    max-width: 510px;
+    color: $portfolio-muted;
+    font-size: 14px;
+    line-height: 1.9;
+    margin-bottom: 30px;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 30px;
+
+    a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 12px 20px;
+        border-radius: 7px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+        transition: all 0.25s ease;
+    }
+}
+
+.btn-primary {
+    background: $portfolio-green;
+    color: #11180F !important;
+
+    &:hover {
+        background: #D0FF91;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba($portfolio-green, 0.18);
+    }
+}
+
+.btn-secondary {
+    border: 1px solid $portfolio-border;
+    color: $portfolio-text !important;
+    background: $portfolio-surface;
+
+    &:hover {
+        border-color: $portfolio-green;
+        color: $portfolio-green !important;
+        transform: translateY(-3px);
+    }
+}
+
+.hero-social {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: $portfolio-muted;
+    font-family: $portfolio-mono;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+}
+
+.social-divider {
+    color: $portfolio-green;
+}
+
+
+//////////////// 4. TERMINAL ////////////////
+
+.hero-terminal {
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid $portfolio-border;
+    border-radius: 12px;
+    background: $portfolio-surface;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+    // backwards (bukan both) supaya hover translateY tetap jalan setelah animasi selesai
+    animation: terminal-enter 1s ease backwards 0.2s;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        border-color: rgba($portfolio-green, 0.5);
+    }
+}
+
+.terminal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 15px 18px;
+    border-bottom: 1px solid $portfolio-border;
+    color: $portfolio-muted;
+    font-family: $portfolio-mono;
+    font-size: 10px;
+}
+
+.terminal-dots {
+    display: flex;
+    gap: 6px;
+
+    span {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #64736A;
+    }
+
+    span:first-child  { background: #F07178; }
+    span:nth-child(2) { background: #E9C46A; }
+    span:last-child   { background: $portfolio-green; }
+}
+
+.terminal-menu {
+    letter-spacing: 2px;
+}
+
+.terminal-body {
+    padding: 24px 22px;
+    font-family: $portfolio-mono;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.terminal-line {
+    color: $portfolio-text;
+    margin-bottom: 8px;
+    overflow-wrap: anywhere;
+}
+
+.terminal-user { color: $portfolio-green; }
+.terminal-path { color: #83B6FF; }
+
+.terminal-command {
+    display: inline-block;
+    white-space: pre;
+}
+
+.terminal-output {
+    color: $portfolio-muted;
+    padding-left: 12px;
+    margin-bottom: 22px;
+
+    p {
+        margin: 0;
+        padding: 2px 0;
+
+        &::before {
+            content: "> ";
+            color: $portfolio-green;
+        }
+    }
+}
+
+.terminal-cursor {
+    display: inline-block;
+    color: $portfolio-green;
+    animation: cursor-blink 1s steps(2, start) infinite;
+}
+
+.terminal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 16px;
+    margin-top: 24px;
+    border-top: 1px solid $portfolio-border;
+    color: $portfolio-muted;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+}
+
+.terminal-online {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $portfolio-green;
+    box-shadow: 0 0 10px rgba($portfolio-green, 0.6);
+    margin-right: -4px;
+}
+
+// State yang dipakai terminal.js
+.terminal-body.is-animating .terminal-hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.terminal-output,
+.terminal-output p,
+.terminal-result,
+.terminal-skills p,
+.terminal-final {
+    transition: opacity 0.3s ease;
+}
+
+.terminal-animating {
+    .terminal-result,
+    .terminal-skills p,
+    .terminal-final {
+        opacity: 0;
+    }
+}
+
+
+//////////////// 5. TECH STACK ////////////////
+
+.tech-section {
+    padding: 40px 0;
+    margin-bottom: 110px;
+    border-top: 1px solid $portfolio-border;
+    border-bottom: 1px solid $portfolio-border;
+}
+
+.tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.tech-item {
+    padding: 9px 15px;
+    border: 1px solid $portfolio-border;
+    border-radius: 6px;
+    color: $portfolio-muted;
+    background: $portfolio-surface;
+    font-family: $portfolio-mono;
+    font-size: 11px;
+    transition: all 0.25s ease;
+
+    &:hover {
+        color: $portfolio-green;
+        border-color: $portfolio-green;
+        transform: translateY(-3px);
+    }
+}
+
+
+//////////////// 6. TECHNICAL FOCUS ////////////////
+
+.focus-section {
+    margin-bottom: 115px;
+}
+
+.focus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.focus-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 225px;
+    padding: 26px;
+    border: 1px solid $portfolio-border;
+    border-radius: 10px;
+    background: $portfolio-surface;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-7px);
+        border-color: rgba($portfolio-green, 0.55);
+        background: $portfolio-card;
+    }
+
+    h3 {
+        color: $portfolio-text;
+        font-size: 18px;
+        font-weight: 650;
+        margin: 28px 0 12px;
+    }
+
+    p {
+        color: $portfolio-muted;
+        font-size: 12px;
+        line-height: 1.9;
+    }
+}
+
+.focus-number {
+    color: $portfolio-green;
+    font-family: $portfolio-mono;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.focus-icon {
+    position: absolute;
+    right: 20px;
+    bottom: 5px;
+    color: rgba($portfolio-green, 0.08);
+    font-family: $portfolio-mono;
+    font-size: 75px;
+    pointer-events: none;
+}
+
+
+//////////////// 7. LATEST ARTICLES ////////////////
+
+.articles-section {
+    margin-bottom: 0;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.article-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+    padding: 24px;
+    border: 1px solid $portfolio-border;
+    border-radius: 10px;
+    background: $portfolio-surface;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        border-color: $portfolio-green;
+        background: $portfolio-card;
+    }
+
+    h3 {
+        color: $portfolio-text;
+        font-size: 17px;
+        line-height: 1.5;
+        margin: 22px 0 12px;
+    }
+
+    p {
+        color: $portfolio-muted;
+        font-size: 12px;
+        line-height: 1.8;
+    }
+}
+
+.article-date {
+    color: $portfolio-green;
+    font-family: $portfolio-mono;
+    font-size: 10px;
+}
+
+.article-link {
+    margin-top: auto;
+    padding-top: 15px;
+    color: $portfolio-green;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.text-link {
+    color: $portfolio-green !important;
+    font-size: 12px;
+    text-decoration: none;
+
+    &:hover {
+        color: $portfolio-text !important;
+    }
+}
+
+
+//////////////// 8. SCROLL REVEAL ////////////////
+// assets/js/terminal.js menambah .has-reveal di <html>, lalu .is-visible
+// saat elemen masuk layar. Pakai animation (bukan transition) supaya efek
+// hover (transform) pada kartu tetap jalan setelah animasi selesai.
+
+.has-reveal .reveal {
+    opacity: 0;
+
+    &.is-visible {
+        opacity: 1;
+        animation: reveal-up 0.6s ease-out backwards;
+        animation-delay: var(--reveal-delay, 0s);
+    }
+}
+
+// Jeda antar kartu dalam satu baris, supaya muncul satu per satu
+.focus-card:nth-child(1), .article-card:nth-child(1) { --reveal-delay: 0.1s; }
+.focus-card:nth-child(2), .article-card:nth-child(2) { --reveal-delay: 0.3s; }
+.focus-card:nth-child(3), .article-card:nth-child(3) { --reveal-delay: 0.5s; }
+
+
+//////////////// 10. FOOTER (override theme Hugo) ////////////////
+
+.footer,
+footer.footer,
+body footer {
+    position: static !important;
+    inset: auto !important;
+    float: none !important;
+
+    width: 100% !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+
+    margin-top: 0 !important;
+    padding: 25px 20px !important;
+
+    text-align: center !important;
+    background: transparent !important;
+    transform: none !important;
+    z-index: auto !important;
+}
+
+
+//////////////// 11. KEYFRAMES ////////////////
+
+@keyframes hero-enter {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes terminal-enter {
+    from { opacity: 0; transform: translateX(25px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes reveal-up {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes status-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.45;
+    }
+}
+
+@keyframes cursor-blink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
+
+//////////////// 12. RESPONSIVE ////////////////
+
+@media screen and (max-width: 900px) {
+
+    .hero-section {
+        grid-template-columns: 1fr;
+        gap: 45px;
+        margin-bottom: 80px;
+    }
+
+    .hero-terminal {
+        max-width: 600px;
+    }
+
+    .focus-grid,
+    .articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tech-section,
+    .focus-section {
+        margin-bottom: 80px;
+    }
+
+    // Kartu ke-3 pindah ke baris baru, nggak perlu nunggu
+    .focus-card:nth-child(3),
+    .article-card:nth-child(3) {
+        --reveal-delay: 0.1s;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .portfolio-wrapper {
+        width: calc(100% - 36px);
+        padding-top: 65px;
+    }
+
+    .hero-section {
+        gap: 35px;
+        min-height: auto;
+    }
+
+    .hero-content h1 {
+        font-size: 45px;
+        letter-spacing: -2px;
+    }
+
+    .hero-role        { font-size: 21px; }
+    .hero-description { font-size: 13px; }
+    .hero-social      { font-size: 8px; }
+
+    .terminal-header {
+        padding: 13px;
+        font-size: 9px;
+    }
+
+    .terminal-body {
+        padding: 18px 14px;
+        font-size: 10px;
+    }
+
+    .terminal-footer {
+        font-size: 8px;
+    }
+
+    .section-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .focus-grid,
+    .articles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .focus-card {
+        min-height: 190px;
+    }
+
+    .tech-section {
+        padding: 30px 0;
+    }
+
+    .tech-item {
+        font-size: 10px;
+    }
+
+    // 1 kolom: tiap kartu muncul saat discroll, tanpa jeda tambahan
+    .focus-card:nth-child(n),
+    .article-card:nth-child(n) {
+        --reveal-delay: 0s;
+    }
+}
+
+
+//////////////// 13. ACCESSIBILITY ////////////////
+
+@media (prefers-reduced-motion: reduce) {
+    .portfolio-wrapper,
+    .portfolio-wrapper *,
+    .portfolio-wrapper *::before,
+    .portfolio-wrapper *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .has-reveal .reveal {
+        opacity: 1;
+    }
+}
+
+
+//////////////// 9. LIGHT MODE OVERRIDES ////////////////
+
+html.light {
+    body {
+        background-color: $portfolio-light-bg;
+        color: $portfolio-light-text;
+    }
+
+    // Hero section
+    .portfolio-wrapper {
+        color: $portfolio-light-text;
+    }
+
+    .portfolio-wrapper .section-label,
+    .hero-greeting,
+    .hero-description,
+    .hero-social,
+    .terminal-header,
+    .terminal-output,
+    .terminal-footer {
+        color: $portfolio-light-muted;
+    }
+
+    .section-heading,
+    .hero-content h1,
+    .hero-role,
+    .terminal-line {
+        color: $portfolio-light-text;
+    }
+
+    .hero-highlight,
+    .hero-role span,
+    .hero-status,
+    .hero-social .social-divider,
+    .terminal-user,
+    .terminal-cursor,
+    .terminal-output p::before {
+        color: $portfolio-light-green;
+    }
+
+    // Buttons
+    .btn-secondary {
+        color: $portfolio-light-text !important;
+        background: $portfolio-light-surface;
+        border-color: $portfolio-light-border;
+
+        &:hover {
+            color: $portfolio-light-green !important;
+            border-color: $portfolio-light-green;
+        }
+    }
+
+    .btn-primary {
+        background: $portfolio-light-green;
+        color: #FFFFFF !important;
+
+        &:hover {
+            background: #1B4528;
+        }
+    }
+
+    // Terminal
+    .hero-terminal {
+        background: $portfolio-light-surface;
+        border-color: $portfolio-light-border;
+        box-shadow: 0 25px 70px rgba(38, 51, 43, 0.10);
+    }
+
+    .terminal-body {
+        color: $portfolio-light-text;
+    }
+
+    .terminal-path {
+        color: #3566A0;
+    }
+
+    .terminal-footer {
+        border-color: $portfolio-light-border;
+    }
+
+    // Tech stack
+    .tech-item {
+        color: $portfolio-light-muted;
+        background: $portfolio-light-surface;
+        border-color: $portfolio-light-border;
+
+        &:hover {
+            color: $portfolio-light-green;
+            border-color: $portfolio-light-green;
+        }
+    }
+
+    // Focus cards
+    .focus-card {
+        background: $portfolio-light-surface;
+        border-color: $portfolio-light-border;
+
+        &:hover {
+            background: $portfolio-light-card;
+            border-color: $portfolio-light-green;
+        }
+
+        h3 {
+            color: $portfolio-light-text;
+        }
+
+        p {
+            color: $portfolio-light-muted;
+        }
+    }
+
+    .focus-number,
+    .article-date,
+    .article-link,
+    .text-link {
+        color: $portfolio-light-green !important;
+    }
+
+    .focus-icon {
+        color: rgba(40, 92, 53, 0.08);
+    }
+
+    // Article cards
+    .article-card {
+        background: $portfolio-light-surface;
+        border-color: $portfolio-light-border;
+
+        &:hover {
+            background: $portfolio-light-card;
+            border-color: $portfolio-light-green;
+        }
+
+        h3 {
+            color: $portfolio-light-text;
+        }
+
+        p {
+            color: $portfolio-light-muted;
+        }
+    }
+
+    .text-link:hover {
+        color: $portfolio-light-text !important;
+    }
+}

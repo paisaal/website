@@ -1,0 +1,68 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Zabbix and Grafana Monitoring Architecture</title>
+  <desc id="desc">Three virtual machines connected through VMware NAT and Host-only networks.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#285C35"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#26332B" flood-opacity=".10"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="760" rx="24" fill="#F4F6F3"/>
+  <text x="600" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#26332B">Distributed Monitoring Architecture</text>
+  <text x="600" y="91" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" fill="#64736A">VMware Workstation · Ubuntu Server 22.04 LTS</text>
+
+  <rect x="65" y="125" width="1070" height="570" rx="20" fill="none" stroke="#8FAF91" stroke-width="2.5" stroke-dasharray="10 8"/>
+  <rect x="430" y="109" width="340" height="38" rx="19" fill="#285C35"/>
+  <text x="600" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">HOST-ONLY · 10.10.10.0/24</text>
+
+  <rect x="420" y="165" width="360" height="48" rx="10" fill="#E8EEE8" stroke="#DCE5DC"/>
+  <text x="600" y="195" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#285C35">VMnet8 NAT + Host-only adapters on all VMs</text>
+
+  <!-- VM2 Agent -->
+  <g filter="url(#shadow)">
+    <rect x="95" y="300" width="290" height="245" rx="16" fill="#FFFFFF" stroke="#DCE5DC" stroke-width="2"/>
+    <rect x="95" y="300" width="290" height="12" rx="6" fill="#E9A23B"/>
+  </g>
+  <text x="240" y="354" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#26332B">VM2 · MONITORED HOST</text>
+  <text x="240" y="395" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#526057">Zabbix Agent</text>
+  <text x="240" y="438" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#285C35">10.10.10.21</text>
+  <text x="240" y="475" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" fill="#64736A">1 vCPU · 2 GB RAM</text>
+  <text x="240" y="510" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#64736A">CPU · Memory · Disk · Network</text>
+
+  <!-- VM1 Zabbix -->
+  <g filter="url(#shadow)">
+    <rect x="455" y="300" width="290" height="245" rx="16" fill="#FFFFFF" stroke="#DCE5DC" stroke-width="2"/>
+    <rect x="455" y="300" width="290" height="12" rx="6" fill="#285C35"/>
+  </g>
+  <text x="600" y="354" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#26332B">VM1 · MONITORING</text>
+  <text x="600" y="395" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#526057">Zabbix Server 7.0 LTS</text>
+  <text x="600" y="438" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#285C35">10.10.10.11</text>
+  <text x="600" y="475" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" fill="#64736A">2 vCPU · 2 GB RAM</text>
+  <text x="600" y="510" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#64736A">MariaDB · Nginx · Zabbix API</text>
+
+  <!-- VM3 Grafana -->
+  <g filter="url(#shadow)">
+    <rect x="815" y="300" width="290" height="245" rx="16" fill="#FFFFFF" stroke="#DCE5DC" stroke-width="2"/>
+    <rect x="815" y="300" width="290" height="12" rx="6" fill="#E9A23B"/>
+  </g>
+  <text x="960" y="354" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#26332B">VM3 · VISUALIZATION</text>
+  <text x="960" y="395" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#526057">Grafana Server</text>
+  <text x="960" y="438" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#285C35">10.10.10.31</text>
+  <text x="960" y="475" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" fill="#64736A">2 vCPU · 2 GB RAM</text>
+  <text x="960" y="510" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#64736A">Zabbix Plugin · Dashboards</text>
+
+  <!-- Communication arrows -->
+  <path d="M385 410 H445" fill="none" stroke="#285C35" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="415" y="390" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#285C35">Metrics</text>
+
+  <path d="M815 410 H755" fill="none" stroke="#E9A23B" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="785" y="390" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#9A641B">API</text>
+
+  <rect x="260" y="590" width="680" height="65" rx="12" fill="#E8EEE8" stroke="#DCE5DC"/>
+  <text x="600" y="617" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#26332B">Total allocated resources: 5 vCPU · 6 GB RAM</text>
+  <text x="600" y="640" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#64736A">All three VMs run Ubuntu Server 22.04 LTS</text>
+</svg>

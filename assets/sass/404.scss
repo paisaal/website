@@ -1,0 +1,271 @@
+/* =========================================
+   QUEST 019 — CUSTOM 404 PAGE
+   Terminal Inspired Design
+========================================= */
+
+$err-dark-bg: #0B0F0E;
+$err-dark-card: #151E19;
+$err-dark-border: #26332B;
+$err-dark-text: #F1F5F2;
+$err-dark-muted: #929E96;
+$err-dark-accent: #B5F36B;
+
+$err-light-bg: #F4F6F3;
+$err-light-card: #FFFFFF;
+$err-light-border: #DCE5DC;
+$err-light-text: #26332B;
+$err-light-muted: #64736A;
+$err-light-accent: #285C35;
+
+/* Layout */
+.page-404 {
+    max-width: 900px;
+    margin-inline: auto;
+}
+
+.page-404 .main-404 {
+    min-height: 65vh;
+    padding: clamp(3rem, 10vh, 7rem) 1rem;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+/* Terminal card */
+.error-terminal {
+    width: 100%;
+    max-width: 680px;
+    overflow: hidden;
+    border: 1px solid $err-light-border;
+    border-radius: 14px;
+    background: $err-light-card;
+    box-shadow: 0 12px 35px rgba(38, 51, 43, 0.08);
+}
+
+/* Terminal header */
+.error-terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid $err-light-border;
+    background: $err-light-bg;
+}
+
+.terminal-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+
+    &.red { background: #F07178; }
+    &.yellow { background: #E9A23B; }
+    &.green { background: #285C35; }
+}
+
+.terminal-label {
+    margin-left: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: $err-light-muted;
+}
+
+/* Terminal body */
+.error-terminal-body {
+    padding: clamp(2rem, 6vw, 3.5rem) 1.5rem;
+}
+
+.error-code {
+    margin: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(4.5rem, 15vw, 7rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.08em;
+    color: $err-light-accent;
+}
+
+.error-terminal-body h1 {
+    margin: 1rem 0 0.8rem;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.15rem, 4vw, 1.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: $err-light-text;
+}
+
+.error-message {
+    max-width: 430px;
+    margin: 0 auto;
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: $err-light-muted;
+}
+
+/* Command prompt */
+.error-prompt {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-top: 1.75rem;
+    padding: 0.7rem 1rem;
+    border: 1px solid $err-light-border;
+    border-radius: 7px;
+    background: $err-light-bg;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: $err-light-text;
+
+    .prompt-symbol {
+        color: $err-light-accent;
+        font-weight: 700;
+    }
+}
+
+/* Navigation buttons */
+.error-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+.error-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0.7rem 1.15rem;
+    border: 1px solid $err-light-accent;
+    border-radius: 7px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    &.primary {
+        background: $err-light-accent;
+        color: #FFFFFF;
+
+        &:hover {
+            background: #1B4528;
+            color: #FFFFFF;
+        }
+    }
+
+    &.secondary {
+        background: transparent;
+        color: $err-light-accent;
+
+        &:hover {
+            background: $err-light-bg;
+        }
+    }
+}
+
+/* Dark mode */
+html.dark .page-404 {
+    .error-terminal {
+        background: $err-dark-card;
+        border-color: $err-dark-border;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .error-terminal-header {
+        background: $err-dark-bg;
+        border-color: $err-dark-border;
+    }
+
+    .terminal-dot.green {
+        background: $err-dark-accent;
+    }
+
+    .terminal-label {
+        color: $err-dark-muted;
+    }
+
+    .error-code {
+        color: $err-dark-accent;
+    }
+
+    .error-terminal-body h1 {
+        color: $err-dark-text;
+    }
+
+    .error-message {
+        color: $err-dark-muted;
+    }
+
+    .error-prompt {
+        background: $err-dark-bg;
+        border-color: $err-dark-border;
+        color: $err-dark-text;
+
+        .prompt-symbol {
+            color: $err-dark-accent;
+        }
+    }
+
+    .error-button {
+        border-color: $err-dark-accent;
+
+        &.primary {
+            background: $err-dark-accent;
+            color: $err-dark-bg;
+
+            &:hover {
+                background: #D0FF91;
+                color: $err-dark-bg;
+            }
+        }
+
+        &.secondary {
+            color: $err-dark-accent;
+
+            &:hover {
+                background: $err-dark-bg;
+            }
+        }
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+    .page-404 .main-404 {
+        min-height: 60vh;
+        padding: 2.5rem 0.75rem;
+    }
+
+    .error-terminal-body {
+        padding: 2rem 1rem;
+    }
+
+        .error-actions {
+        flex-direction: column;
+        width: 100%;
+
+        .error-button {
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .error-button {
+        transition: none;
+
+        &:hover {
+            transform: none;
+        }
+    }
+}

@@ -1,38 +1,40 @@
-//////////////// 1. Light Colors /////////////////
-$text-base-color: #434648;
-$text-link-blue: #C23B3B;
-$text-link-blue-active: #DC143C;
-$bloquote-border: #c4c8cc;
-$blockquote-text: #525b66;
-$inline-code-text: #333638;
-$inline-code-bg: #d8dbe2;
-$toc-bg: #edecec;
-$go-top-bg: #dfe0e397;
-$go-top-bg-hover: #dfe0e3;
 
-$black: #0d122b;
-$light: #FFFAFA;
-$smoke: #d2c7c7;
-$gray: #6b7886;
-$white: #FFFAFA;
+//////////////// 1. Light Colors /////////////////
+$text-base-color: #434F47;
+$text-link-blue: #285C35;
+$text-link-blue-active: #1B4528;
+$bloquote-border: #8FAF91;
+$blockquote-text: #526057;
+$inline-code-text: #26332B;
+$inline-code-bg: #E8EEE8;
+$toc-bg: #E8EEE8;
+$go-top-bg: #DCE5DC97;
+$go-top-bg-hover: #DCE5DC;
+
+$black: #26332B;
+$light: #DCE5DC;
+$smoke: #DCE5DC;
+$gray: #64736A;
+$white: #F4F6F3;
 
 //////////////// 2. Dark Colors /////////////////
-$dark-text-base-color: #babdc4;
-$dark-text-link-blue: #CD5C5C;
-$dark-text-link-blue-active: #DC143C;
-$dark-bloquote-border: #4a4d56;
-$dark-blockquote-text: #9b9ba3;
-$dark-inline-code-text: #c2c4ca;
-$dark-inline-code-bg: #2d2d2d;
-$dark-toc-bg: #323232;
-$dark-go-top-bg: #676767b3;
-$dark-go-top-bg-hover: #676767;
+$dark-text-base-color: #C4CEC7;
+$dark-text-link-blue: #B5F36B;
+$dark-text-link-blue-active: #D0FF91;
+$dark-bloquote-border: #526B57;
+$dark-blockquote-text: #C4CEC7;
+$dark-inline-code-text: #D5DDD7;
+$dark-inline-code-bg: #1B2820;
+$dark-toc-bg: #151E19;
+$dark-go-top-bg: #26332B;
+$dark-go-top-bg-hover: #344139;
 
-$dark-black: #02021b;
-$dark-white: #eaeaea;
-$dark-light: #1b1d25;
-$dark-smoke: #4a4d56;
-$dark-gray: #767f87;
+$dark-black: #0B0F0E;
+$dark-white: #F1F5F2;
+$dark-light: #26332B;
+$dark-smoke: #344139;
+$dark-gray: #929E96;
+
 
 //////////////// 3. Fonts preferences /////////////////
 $sans-family: 'Inter', Roboto, sans-serif;
@@ -84,8 +86,27 @@ $on-widescreen: 1152px;
 @import "tableOfContent";
 @import "miscellaneous";
 @import "dark";
-@import "listpage";
 
 {{ with .Site.Params.goToTop }}
 @import "goToTop";
 {{ end }}
+
+// Quest 019 — Custom 404 Page
+@import "404";
+
+// Global focus color — Terminal Inspired
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline-color: #285C35;
+}
+
+html.dark a:focus,
+html.dark button:focus,
+html.dark input:focus,
+html.dark select:focus,
+html.dark textarea:focus {
+    outline-color: #B5F36B;
+}

@@ -7,7 +7,7 @@
   // Author avatar ring
   .author-avatar {
     background-image: linear-gradient($dark-black, $dark-black),
-      linear-gradient(135deg, $dark-text-link-blue, #6c8cff);
+    linear-gradient(135deg, $dark-text-link-blue, #E9A23B);
   }
 
   // Headings
@@ -37,7 +37,7 @@
   // Post
   .page-content {
     blockquote {
-      background-color: rgba(205, 92, 92, 0.08);
+    background-color: rgba(181, 243, 107, 0.08);
     }
 
     figure img {
@@ -168,7 +168,7 @@
     }
 
     &:focus {
-      outline-color: rgba(240, 128, 128, 1);
+      outline-color: rgba(233, 162, 59, 0.9);
     }
   }
 

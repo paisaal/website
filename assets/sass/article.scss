@@ -1,0 +1,618 @@
+
+/* =========================================
+   QUEST 018 — ARTICLE PAGE
+   Terminal Inspired Design
+========================================= */
+
+/* Design tokens */
+$article-dark-bg: #0B0F0E;
+$article-dark-surface: #121916;
+$article-dark-card: #151E19;
+$article-dark-border: #26332B;
+$article-dark-text: #F1F5F2;
+$article-dark-muted: #929E96;
+$article-dark-accent: #B5F36B;
+
+$article-light-bg: #F4F6F3;
+$article-light-surface: #FFFFFF;
+$article-light-card: #E8EEE8;
+$article-light-border: #DCE5DC;
+$article-light-text: #26332B;
+$article-light-muted: #64736A;
+$article-light-accent: #285C35;
+
+/* Article layout */
+.wrapper.post {
+    max-width: 900px;
+    margin-inline: auto;
+}
+
+/* Article header */
+.wrapper.post > main > article > .header {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+
+    .header-title {
+        font-family: 'Inter', sans-serif;
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.045em;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Article metadata */
+.wrapper.post .post-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+}
+
+/* Article body */
+.wrapper.post article > .page-content {
+    padding-top: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.85;
+
+    > p {
+        margin: 0 0 1.25rem;
+        padding: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.4;
+        letter-spacing: -0.025em;
+        scroll-margin-top: 100px;
+    }
+
+    h2 {
+        font-size: 1.65rem;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    h3 {
+        font-size: 1.35rem;
+        margin-top: 2.5rem;
+        margin-bottom: 0.85rem;
+    }
+
+    h4, h5, h6 {
+        margin-top: 1.8rem;
+        margin-bottom: 0.75rem;
+    }
+
+    ul, ol {
+        padding-left: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    li {
+        margin-bottom: 0.45rem;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+    }
+}
+
+/* Dark mode */
+html.dark .wrapper.post {
+    color: $article-dark-text;
+
+    .header-title,
+    article > .page-content h1,
+    article > .page-content h2,
+    article > .page-content h3,
+    article > .page-content h4,
+    article > .page-content h5,
+    article > .page-content h6 {
+        color: $article-dark-text;
+    }
+
+    .post-meta {
+        color: $article-dark-muted;
+    }
+
+    article > .page-content {
+        color: $article-dark-muted;
+
+        strong, b {
+            color: $article-dark-text;
+        }
+
+        a {
+            color: $article-dark-accent;
+        }
+    }
+}
+
+/* Light mode */
+html.light .wrapper.post {
+    color: $article-light-text;
+
+    .header-title,
+    article > .page-content h1,
+    article > .page-content h2,
+    article > .page-content h3,
+    article > .page-content h4,
+    article > .page-content h5,
+    article > .page-content h6 {
+        color: $article-light-text;
+    }
+
+    .post-meta {
+        color: $article-light-muted;
+    }
+
+    article > .page-content {
+        color: $article-light-muted;
+
+        strong, b {
+            color: $article-light-text;
+        }
+
+        a {
+            color: $article-light-accent;
+        }
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+    .wrapper.post {
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        > main > article > .header {
+            margin-top: 2.5rem;
+
+            .header-title {
+                font-size: 1.85rem;
+            }
+        }
+
+        article > .page-content {
+            font-size: 0.95rem;
+            line-height: 1.8;
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+        }
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .wrapper.post * {
+        scroll-behavior: auto;
+        transition: none !important;
+    }
+}
+
+/* =========================================
+   QUEST 018.5.1 — TABLE OF CONTENTS
+========================================= */
+
+/* Shared */
+.wrapper.post .toc {
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    transition: border-color 0.2s ease;
+
+    summary {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+
+        b {
+            font-weight: 700;
+            opacity: 1;
+        }
+    }
+
+    ul {
+        margin-top: 1rem;
+        padding-left: 1rem;
+
+        li {
+            line-height: 1.6;
+            margin-bottom: 0.55rem;
+
+            a {
+                opacity: 1;
+                text-decoration: none;
+                transition: color 0.2s ease;
+            }
+        }
+    }
+}
+
+/* Dark mode */
+html.dark .wrapper.post .toc {
+    background: $article-dark-card;
+    border-color: $article-dark-border;
+
+    summary {
+        color: $article-dark-text;
+
+        &::after {
+            border-color: $article-dark-accent;
+        }
+    }
+
+    ul {
+        border-left-color: $article-dark-border;
+
+        li a {
+            color: $article-dark-muted;
+
+            &:hover {
+                color: $article-dark-accent;
+            }
+        }
+    }
+
+    &:hover {
+        border-color: $article-dark-accent;
+    }
+}
+
+/* Light mode */
+html.light .wrapper.post .toc {
+    background: $article-light-card;
+    border-color: $article-light-border;
+
+    summary {
+        color: $article-light-text;
+
+        &::after {
+            border-color: $article-light-accent;
+        }
+    }
+
+    ul {
+        border-left-color: $article-light-border;
+
+        li a {
+            color: $article-light-muted;
+
+            &:hover {
+                color: $article-light-accent;
+            }
+        }
+    }
+
+    &:hover {
+        border-color: $article-light-accent;
+    }
+}
+
+/* =========================================
+   QUEST 018.5.2 — CODE BLOCK
+========================================= */
+
+/* Block code */
+.wrapper.post article > .page-content {
+    pre {
+        background: #1A1B21;
+        border: 1px solid #344139;
+        border-radius: 10px;
+        padding: 1.15rem 1.35rem;
+        margin: 1.5rem 0 2rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+
+        > code {
+            color: #F1F5F2;
+            line-height: 1.7;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            max-width: none;
+        }
+    }
+
+    /* Inline code */
+    p > code,
+    li > code,
+    td > code {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85em;
+        padding: 0.15rem 0.4rem;
+        border-radius: 5px;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+}
+
+/* Dark and light mode — code blocks stay dark */
+html.dark .wrapper.post article > .page-content pre,
+html.light .wrapper.post article > .page-content pre {
+    background: #1A1B21;
+    border-color: #344139;
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+    .wrapper.post article > .page-content pre {
+        padding: 0.9rem 1rem;
+        margin: 1.25rem -1rem 1.75rem;
+        border-radius: 8px;
+
+        > code {
+            font-size: 0.78rem;
+            line-height: 1.65;
+        }
+    }
+}
+
+/* =========================================
+   QUEST 018.5.3A — BLOCKQUOTE
+========================================= */
+
+.wrapper.post article > .page-content blockquote {
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0 2rem;
+    border-left-width: 4px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95rem;
+    line-height: 1.75;
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+
+    p {
+        margin-top: 0.25rem;
+    }
+}
+
+/* Dark mode */
+html.dark .wrapper.post article > .page-content blockquote {
+    color: $article-dark-text;
+    background: rgba(181, 243, 107, 0.08);
+    border-left-color: $article-dark-accent;
+}
+
+/* Light mode */
+html.light .wrapper.post article > .page-content blockquote {
+    color: $article-light-text;
+    background: rgba(40, 92, 53, 0.06);
+    border-left-color: $article-light-accent;
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+    .wrapper.post article > .page-content blockquote {
+        padding: 0.85rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* =========================================
+   QUEST 018.5.3B — ARTICLE TABLE
+========================================= */
+
+.wrapper.post article > .page-content {
+    table {
+        width: 100%;
+        margin: 1.5rem 0 2rem;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        font-size: 0.9rem;
+
+        th,
+        td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+            border-right: 1px solid;
+            border-bottom: 1px solid;
+        }
+
+        th:last-child,
+        td:last-child {
+            border-right: 0;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        th {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+        }
+
+        td {
+            line-height: 1.65;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+    }
+}
+
+/* Dark mode */
+html.dark .wrapper.post article > .page-content table {
+    border: 1px solid $article-dark-border;
+
+    th {
+        color: $article-dark-accent;
+        background: $article-dark-card;
+        border-color: $article-dark-border;
+    }
+
+    td {
+        color: $article-dark-muted;
+        border-color: $article-dark-border;
+    }
+
+    tbody tr:nth-child(even) {
+        background: rgba(255, 255, 255, 0.025);
+    }
+
+    tbody tr:hover {
+        background: rgba(181, 243, 107, 0.06);
+    }
+}
+
+/* Light mode */
+html.light .wrapper.post article > .page-content table {
+    border: 1px solid $article-light-border;
+
+    th {
+        color: $article-light-accent;
+        background: $article-light-card;
+        border-color: $article-light-border;
+    }
+
+    td {
+        color: $article-light-muted;
+        border-color: $article-light-border;
+    }
+
+    tbody tr:nth-child(even) {
+        background: rgba(40, 92, 53, 0.025);
+    }
+
+    tbody tr:hover {
+        background: rgba(40, 92, 53, 0.05);
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+    .wrapper.post article > .page-content table {
+        font-size: 0.8rem;
+
+        th,
+        td {
+            padding: 0.6rem 0.75rem;
+        }
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .wrapper.post article > .page-content table tbody tr {
+        transition: none;
+    }
+}
+
+/* =========================================
+   QUEST 018.5.4 — POST NAVIGATION
+========================================= */
+
+.wrapper.post .post-nav {
+    gap: 1rem;
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+
+    .post-nav-item {
+        border-radius: 10px;
+        padding: 1.15rem 1.25rem;
+        text-decoration: none;
+        transition: border-color 0.2s ease,
+                    transform 0.2s ease,
+                    background-color 0.2s ease;
+
+        .nav-arrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.65rem;
+        }
+
+        .post-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+}
+
+/* Dark mode */
+html.dark .wrapper.post .post-nav .post-nav-item {
+    background: $article-dark-card;
+    border-color: $article-dark-border;
+
+    .nav-arrow {
+        color: $article-dark-muted;
+    }
+
+    .post-title {
+        color: $article-dark-text;
+    }
+
+    &:hover {
+        border-color: $article-dark-accent;
+
+        .post-title {
+            color: $article-dark-accent;
+        }
+    }
+}
+
+/* Light mode */
+html.light .wrapper.post .post-nav .post-nav-item {
+    background: $article-light-surface;
+    border-color: $article-light-border;
+
+    .nav-arrow {
+        color: $article-light-muted;
+    }
+
+    .post-title {
+        color: $article-light-text;
+    }
+
+    &:hover {
+        border-color: $article-light-accent;
+
+        .post-title {
+            color: $article-light-accent;
+        }
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+    .wrapper.post .post-nav {
+        margin-top: 3rem;
+
+        .post-nav-item {
+            width: 100%;
+            padding: 1rem;
+        }
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .wrapper.post .post-nav .post-nav-item {
+        transition: none;
+    }
+
+    .wrapper.post .post-nav .post-nav-item:hover {
+        transform: none;
+    }
+}

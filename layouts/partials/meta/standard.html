@@ -1,0 +1,69 @@
+<meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{{/*
+  Override dari theme hugo-blog-awesome (meta/standard.html).
+  Beda dengan versi theme:
+  - Homepage pakai params.homeTitle (sebelumnya jadi "X | X" karena .Title == .Site.Title)
+  - Halaman lain: "<judul> | <sitename>" (pakai nama singkat, bukan title situs yang panjang)
+  - og:url, og:type (halaman non-posts), twitter:card
+  - og:locale diformat en_US (bukan en-us)
+*/}}
+{{- $siteName := .Site.Params.sitename | default .Site.Title -}}
+{{- $pageTitle := printf "%s | %s" .Title $siteName -}}
+{{- if .IsHome -}}
+  {{- $pageTitle = .Site.Params.homeTitle | default .Site.Title -}}
+{{- end -}}
+
+<title itemprop="name">{{ $pageTitle }}</title>
+<meta property="og:title" content="{{ $pageTitle }}" />
+<meta name="twitter:title" content="{{ $pageTitle }}" />
+<meta itemprop="name" content="{{ $pageTitle }}" />
+<meta name="application-name" content="{{ $pageTitle }}" />
+<meta property="og:site_name" content="{{ $siteName }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+{{- if ne .Section "posts" }}
+<meta property="og:type" content="website" />
+{{- end }}
+<meta name="twitter:card" content="summary_large_image" />
+
+{{/*  Define empty variable description  */}}
+{{- $description := "" -}}
+
+{{/*  If description is defined in front matter, use it  */}}
+{{- if .Params.description -}}
+  {{- $description = trim .Params.description "\n" -}}
+{{/*  If description is not defined in front matter, use site description  */}}
+{{- else if .Site.Params.description -}}
+  {{- $description = trim .Site.Params.description "\n" -}}
+{{- end -}}
+
+<meta name="description" content="{{ $description }}">
+<meta itemprop="description" content="{{ $description }}" />
+<meta property="og:description" content="{{ $description }}" />
+<meta name="twitter:description" content="{{ $description }}" />
+
+{{/*  en-us -> en_US (format yang dipakai Open Graph)  */}}
+{{- $locale := .Site.LanguageCode -}}
+{{- $parts := split $locale "-" -}}
+{{- if eq (len $parts) 2 -}}
+  {{- $locale = printf "%s_%s" (index $parts 0) (upper (index $parts 1)) -}}
+{{- end -}}
+<meta property="og:locale" content="{{ $locale }}" />
+<meta name="language" content="{{ .Site.LanguageCode }}" />
+{{ range .AllTranslations }}
+  <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" title="{{ .Language.LanguageName }}" />
+{{ end }}
+
+{{ with .Params.image }}
+  <meta itemprop="image" content="{{ . | absURL }}" />
+  <meta property="og:image" content="{{ . | absURL }}" />
+  <meta name="twitter:image" content="{{ . | absURL }}" />
+  <meta name="twitter:image:src" content="{{ . | absURL }}" />
+{{ else }}
+  <meta itemprop="image" content="{{ .Site.Params.ogimage | absURL }}" />
+  <meta property="og:image" content="{{ .Site.Params.ogimage | absURL }}" />
+  <meta name="twitter:image" content="{{ .Site.Params.ogimage | absURL }}" />
+  <meta name="twitter:image:src" content="{{ .Site.Params.ogimage | absURL }}" />
+{{ end }}

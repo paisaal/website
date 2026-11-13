@@ -1,0 +1,48 @@
+
+{{- define "main" -}}
+<div class="wrapper projects-page">
+    <header class="projects-header">
+        <span class="projects-eyebrow">ENGINEERING PORTFOLIO</span>
+        <h1>{{ .Title }}</h1>
+        <p>{{ .Description }}</p>
+    </header>
+
+    <main class="projects-grid" aria-label="Project portfolio">
+        {{ range .RegularPages.ByDate.Reverse }}
+        <article class="project-card">
+            <a class="project-card-image" href="{{ .RelPermalink }}">
+                {{ with .Params.thumbnail }}
+                <img src="{{ . | relURL }}" alt="{{ $.Title }} architecture preview" loading="lazy">
+                {{ end }}
+            </a>
+
+            <div class="project-card-content">
+                {{ with .Params.project_type }}
+                <span class="project-card-category">{{ . }}</span>
+                {{ end }}
+
+                <h2>
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h2>
+
+                <p class="project-card-description">
+                    {{ .Description }}
+                </p>
+
+                {{ with .Params.tech_stack }}
+                <div class="project-card-stack">
+                    {{ range . }}
+                    <span>{{ . }}</span>
+                    {{ end }}
+                </div>
+                {{ end }}
+
+                <a class="project-card-link" href="{{ .RelPermalink }}">
+                    Explore Project <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </article>
+        {{ end }}
+    </main>
+</div>
+{{- end -}}

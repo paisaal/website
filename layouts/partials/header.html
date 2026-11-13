@@ -1,0 +1,66 @@
+
+<div class="navbar portfolio-navbar" role="navigation">
+    <nav class="menu" aria-label="Main Navigation">
+
+        <!-- BRAND -->
+        <a href="{{ .Site.Home.Permalink }}" class="portfolio-brand">
+            NURFAISAL<span>.</span>
+        </a>
+
+        <!-- MOBILE MENU -->
+        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+
+        <label for="menu-trigger" class="portfolio-menu-toggle">
+            <span class="menu-icon">
+                {{ partial "svgs/menu.svg" (dict "height" 25 "width" 25) . }}
+            </span>
+        </label>
+
+        <!-- NAVIGATION -->
+        <div class="trigger">
+
+            <ul class="trigger-container">
+                {{ $currentPage := . }}
+
+                {{ range .Site.Menus.main }}
+                <li>
+                    <a class="menu-link {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{ end }}"
+                       href="{{ .URL }}">
+                        {{ .Name }}
+                    </a>
+                </li>
+                {{ end }}
+            </ul>
+
+            <!-- GITHUB -->
+            <a href="https://github.com/paisaal"
+               class="portfolio-github"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="GitHub">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="21"
+                     height="21"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                </svg>
+            </a>
+
+            <!-- THEME TOGGLE -->
+            <div class="portfolio-theme-toggle">
+                <a id="mode" href="#" aria-label="Toggle light/dark mode" role="button">
+                    {{ partial "svgs/sun.svg" (dict "height" 21 "width" 21 "class" "mode-sunny" "title" "LIGHT") . }}
+                    {{ partial "svgs/sun.svg" (dict "height" 21 "width" 21 "class" "mode-moon" "title" "DARK") . }}
+                </a>
+            </div>
+
+        </div>
+    </nav>
+</div>
