@@ -2,7 +2,7 @@
 title: "Distributed Infrastructure Monitoring"
 subtitle: "Building a Centralized Monitoring System with Zabbix and Grafana"
 date: 2026-11-12
-draft: true
+draft: false
 author: "Muhammad Nurfaisal"
 description: "A three-VM infrastructure monitoring lab using Zabbix 7.0 LTS, Zabbix Agent, and Grafana on Ubuntu Server 22.04 LTS."
 thumbnail: "/images/projects/zabbix-grafana/architecture.svg"
