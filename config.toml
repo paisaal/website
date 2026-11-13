@@ -35,17 +35,23 @@ ignoreErrors = ["additional-script-loading-error"] # ignore error of loading add
 		ordered = false # generates <ul> instead of <ol>
 
 [menu]
-  # pageRef dipakai untuk highlight menu aktif; `url` jadi fallback kalau page nggak ketemu.
   [[menu.main]]
-    pageRef="about"
-    name = 'About'
-    url = '/about/'
+    pageRef = "about"
+    name = "About"
+    url = "/about/"
     weight = 10
+
   [[menu.main]]
-    pageRef="posts"
-    name = 'Posts'
-    url = '/posts/'
+    pageRef = "projects"
+    name = "Projects"
+    url = "/projects/"
     weight = 20
+
+  [[menu.main]]
+    pageRef = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 30
 
 
 [params]

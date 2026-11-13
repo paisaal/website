@@ -1,0 +1,278 @@
+$portfolio-green: #B5F36B;
+$portfolio-text: #F1F5F2;
+
+//////////////// 9. NAVBAR ////////////////
+
+.portfolio-navbar {
+    position: sticky !important;
+    top: 16px;
+    z-index: 1000;
+
+    width: calc(100% - 48px);
+    max-width: 1120px !important;
+    height: auto !important;
+
+    margin: 16px auto 0 !important;
+    padding: 0 !important;
+
+    border: none !important;
+    background: transparent !important;
+
+    .menu {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        min-height: 68px;
+        padding: 0 26px;
+
+        background: rgba(19, 25, 23, 0.88);
+        border: 1px solid rgba($portfolio-green, 0.12);
+        border-radius: 18px;
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .portfolio-brand {
+        float: none;
+        margin: 0;
+        padding: 0;
+
+        color: $portfolio-text;
+        font-family: 'Inter', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        text-decoration: none;
+
+        span {
+            color: $portfolio-green;
+        }
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .trigger {
+        float: none;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .trigger-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    li {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .menu-link {
+        position: relative;
+        display: inline-block;
+        padding: 8px 12px;
+
+        color: #A7B0AA !important;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-decoration: none;
+        opacity: 1 !important;
+        transition: color 0.25s ease;
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 2px;
+            left: 12px;
+            width: 0;
+            height: 2px;
+            background: $portfolio-green;
+            transition: width 0.25s ease;
+        }
+
+        &:hover,
+        &.active {
+            color: $portfolio-green !important;
+        }
+
+        &:hover::after,
+        &.active::after {
+            width: calc(100% - 24px);
+        }
+    }
+
+    .portfolio-github {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #D5DDD7;
+        transition: color 0.25s ease, transform 0.25s ease;
+
+        svg {
+            width: 21px;
+            height: 21px;
+        }
+
+        &:hover {
+            color: $portfolio-green;
+            transform: translateY(-2px);
+        }
+    }
+
+    .portfolio-theme-toggle {
+        display: flex;
+        align-items: center;
+        padding-left: 18px;
+        border-left: 1px solid #344139;
+
+        a#mode {
+            position: static;
+            display: flex;
+            align-items: center;
+            opacity: 1;
+        }
+    }
+
+    // Hamburger disembunyikan di desktop
+    .menu-trigger,
+    .portfolio-menu-toggle {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .portfolio-navbar {
+        width: calc(100% - 28px);
+        top: 10px;
+        margin-top: 10px !important;
+
+        .menu {
+            position: relative !important;
+            min-height: 60px;
+            height: auto !important;
+            padding: 0 18px;
+            background: rgba(19, 25, 23, 0.95);
+            border: 1px solid rgba($portfolio-green, 0.15);
+            border-radius: 15px;
+            text-align: left;
+        }
+
+        .portfolio-brand {
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+
+        .portfolio-menu-toggle {
+            display: block;
+            position: absolute;
+            right: 18px;
+            top: 17px;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .menu-icon {
+            display: block;
+            position: static;
+            margin: 0;
+
+            svg {
+                stroke: $portfolio-green;
+            }
+        }
+
+        // Panel dropdown
+        .trigger {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            right: 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 16px;
+            padding: 20px;
+
+            background: #131917;
+            border: 1px solid #344139;
+            border-radius: 15px;
+
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+        }
+
+        .trigger-container {
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
+        }
+
+        li {
+            display: block;
+            width: 100%;
+        }
+
+        .menu-link {
+            display: block;
+            width: 100%;
+            padding: 10px 12px;
+        }
+
+        .portfolio-github {
+            padding: 8px 12px;
+            justify-content: flex-start;
+        }
+
+        .portfolio-theme-toggle {
+            padding: 12px 12px 0;
+            border-left: none;
+            border-top: 1px solid #344139;
+        }
+
+        input.menu-trigger:checked ~ .trigger {
+            width: auto;
+            height: auto;
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            animation: none;
+            -webkit-animation: none;
+        }
+    }
+}
+
+/* =========================================
+   THEME SWITCHER — LIGHT MODE CONTRAST FIX
+========================================= */
+
+html.light .portfolio-navbar .portfolio-theme-toggle a#mode {
+    .mode-moon {
+        line,
+        circle {
+            stroke: #D5DDD7;
+        }
+    }
+
+    &:hover .mode-moon {
+        line,
+        circle {
+            stroke: #B5F36B;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+<footer class="footer">
+    <div class="footer_social-icons">
+        {{- partial "socialIcons.html" site.Params.socialIcons -}}
+    </div>
+
+    <p class="footer_identity">
+        Infrastructure &amp; System Engineer
+        <span class="footer_separator">&middot;</span>
+        Bogor, Indonesia
+    </p>
+
+    <small class="footer_copyright">
+        &copy; {{ now.Format "2006" }} {{ .Site.Params.author.name }}.
+        Built with Hugo.
+    </small>
+</footer>
+
+{{- if .Site.Params.goToTop -}}
+<a href="#" title="Go to top" aria-label="Go to top" id="totop">
+    {{ partial "svgs/arrowUp.svg" (dict "height" 100 "width" 100) . }}
+</a>
+{{- end -}}

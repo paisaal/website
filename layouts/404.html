@@ -1,0 +1,43 @@
+{{ define "title" }}
+404 | Page Not Found
+{{ end }}
+
+{{ define "main" }}
+<div class="wrapper page-404">
+    <main class="main-404" aria-label="Page not found">
+        <div class="error-terminal">
+            <div class="error-terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-label">system-response</span>
+            </div>
+
+            <div class="error-terminal-body">
+                <p class="error-code">404</p>
+                <h1>PAGE NOT FOUND</h1>
+
+                <p class="error-message">
+                    The page you're looking for doesn't exist
+                    or may have been moved.
+                </p>
+
+                <div class="error-prompt">
+                    <span class="prompt-symbol">$</span>
+                    <span>redirect --destination home</span>
+                </div>
+
+                <nav class="error-actions" aria-label="Error navigation">
+                    <a class="error-button primary" href="/">
+                        Back to Home
+                    </a>
+
+                    <a class="error-button secondary" href="/posts/">
+                        Explore Posts
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </main>
+</div>
+{{ end }}

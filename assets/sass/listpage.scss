@@ -1,0 +1,172 @@
+
+/* =========================================
+   QUEST 017 — POSTS PAGE
+   Terminal Inspired Design
+========================================= */
+
+/* Layout */
+.list-page {
+    max-width: 900px;
+    margin-inline: auto;
+}
+
+/* Page heading */
+.list-page .header-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+/* Publication year */
+.list-page .post-year {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 2.75rem 0 1.25rem;
+    padding: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    opacity: 1;
+
+    &::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        background: #285C35;
+    }
+}
+
+/* Post card */
+.list-page .post-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 1.25rem 1.4rem;
+    margin-bottom: 0.85rem;
+    border: 1px solid #DCE5DC;
+    border-radius: 10px;
+    background: #FFFFFF;
+    transition: border-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        border-color: #285C35;
+        box-shadow: 0 6px 20px rgba(38, 51, 43, 0.07);
+    }
+}
+
+/* Post title */
+.list-page .post-item-title {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+
+    a {
+        color: #26332B;
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: #285C35;
+        }
+    }
+}
+
+/* Publication date */
+.list-page .post-item-meta {
+    display: inline-block;
+    margin: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #64736A;
+    opacity: 1;
+}
+
+/* Dark mode */
+html.dark .list-page {
+    .header-title {
+        color: #F1F5F2;
+    }
+
+    .post-year {
+        color: #B5F36B;
+
+        &::before {
+            background: #B5F36B;
+        }
+    }
+
+    .post-item {
+        background: #151E19;
+        border-color: #26332B;
+
+        &:hover {
+            border-color: #B5F36B;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .post-item-title a {
+        color: #F1F5F2;
+
+        &:hover {
+            color: #B5F36B;
+        }
+    }
+
+    .post-item-meta {
+        color: #929E96;
+    }
+}
+
+/* Light mode */
+html.light .list-page {
+    .header-title {
+        color: #26332B;
+    }
+
+    .post-year {
+        color: #285C35;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+    .list-page {
+        max-width: 100%;
+
+        .post-year {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+        }
+
+        .post-item {
+            padding: 1rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .post-item-title {
+            font-size: 1rem;
+        }
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .list-page .post-item,
+    .list-page .post-item-title a {
+        transition: none;
+    }
+
+    .list-page .post-item:hover {
+        transform: none;
+    }
+}

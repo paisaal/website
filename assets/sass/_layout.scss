@@ -23,7 +23,7 @@
     padding: 4px;
     border: 3px solid transparent;
     background-image: linear-gradient($white, $white),
-      linear-gradient(135deg, $text-link-blue, #6c8cff);
+      linear-gradient(135deg, $text-link-blue, #D97736);
     background-origin: border-box;
     background-clip: content-box, border-box;
     box-shadow: 0 8px 28px rgba(13, 18, 43, 0.12);
@@ -192,4 +192,133 @@ mark {
   background: #ff0;
   color: #000;
   border-radius: 3px;
+}
+
+/* =========================================
+   QUEST 019 — GLOBAL FOOTER
+   Terminal Inspired Design
+========================================= */
+
+.footer {
+    box-sizing: border-box;
+    position: static !important;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: 3rem;
+    padding: 1.75rem 1rem 1.25rem;
+    text-align: center;
+    border-top: 1px solid #DCE5DC;
+    background: transparent;
+
+    .footer_social-icons {
+        margin-bottom: 0.75rem;
+
+        a {
+            margin: 0 0.2rem;
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
+            color: #64736A;
+        }
+
+        a:hover svg {
+            color: #285C35;
+        }
+    }
+
+    .footer_identity {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.82rem;
+        color: #526057;
+        line-height: 1.7;
+    }
+
+    .footer_separator {
+        padding: 0 0.35rem;
+        color: #285C35;
+    }
+
+    .footer_copyright {
+        display: block;
+        margin-top: 0.4rem;
+        padding: 0;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.68rem;
+        color: #64736A;
+        opacity: 1;
+    }
+}
+
+/* Dark mode */
+html.dark .footer {
+    border-top-color: #26332B;
+
+    .footer_social-icons {
+        svg {
+            color: #929E96;
+        }
+
+        a:hover svg {
+            color: #B5F36B;
+        }
+    }
+
+    .footer_identity {
+        color: #C4CEC7;
+    }
+
+    .footer_separator {
+        color: #B5F36B;
+    }
+
+    .footer_copyright {
+        color: #929E96;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+    .footer {
+        margin-top: 2rem;
+        padding: 1.5rem 1rem 1rem;
+
+        .footer_identity {
+            font-size: 0.76rem;
+        }
+
+        .footer_copyright {
+            font-size: 0.64rem;
+        }
+    }
+}
+
+/* =========================================
+   QUEST 019 — MOBILE FOOTER FIX
+========================================= */
+
+@media screen and (max-width: 600px) {
+    .footer {
+        padding: 1.5rem 1rem 4.5rem !important;
+    }
+
+    .footer_identity {
+        max-width: 290px;
+        margin-inline: auto !important;
+        line-height: 1.8 !important;
+    }
+
+    .footer_copyright {
+        margin-top: 0.65rem !important;
+        line-height: 1.7;
+        overflow-wrap: anywhere;
+    }
+
+    #totop {
+        right: 16px;
+        bottom: 16px;
+    }
 }

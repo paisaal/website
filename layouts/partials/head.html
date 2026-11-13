@@ -24,8 +24,45 @@
 
     {{- $style := resources.Get "sass/main.scss" | resources.ExecuteAsTemplate "style.scss" . | toCSS (dict "targetPath" "style.css") | minify | fingerprint }}
     <link href="{{ $style.RelPermalink }}" rel="stylesheet">
-    {{- $code_syntax_highlight_css := resources.Get "code-highlight.css" | minify | fingerprint }}
-    <link href="{{ $code_syntax_highlight_css.RelPermalink }}" rel="stylesheet">
+
+    {{- $portfolio_navbar := resources.Get "sass/portfolio-navbar.scss" | toCSS (dict "targetPath" "portfolio-navbar.css") | minify | fingerprint }}
+    <link href="{{ $portfolio_navbar.RelPermalink }}" rel="stylesheet">
+
+    {{- if or .IsSection (eq .Kind "taxonomy") (eq .Kind "term") }}
+    {{- $listpage := resources.Get "sass/listpage.scss" | toCSS (dict "targetPath" "listpage.css") | minify | fingerprint }}
+    <link href="{{ $listpage.RelPermalink }}" rel="stylesheet">
+{{- end }}
+
+    {{- if and .IsSection (eq .Section "projects") }}
+    {{- $projects_list := resources.Get "sass/projects-list.scss" | toCSS (dict "targetPath" "projects-list.css") | minify | fingerprint }}
+    <link href="{{ $projects_list.RelPermalink }}" rel="stylesheet">
+{{- end }}
+
+    {{- if eq .RelPermalink "/about/" }}
+    {{- $about := resources.Get "sass/about.scss" | toCSS (dict "targetPath" "about.css") | minify | fingerprint }}
+    <link href="{{ $about.RelPermalink }}" rel="stylesheet">
+{{- end }}
+
+    {{- if and .IsPage (eq .Section "projects") }}
+    {{- $project := resources.Get "sass/project.scss" | toCSS (dict "targetPath" "project.css") | minify | fingerprint }}
+    <link href="{{ $project.RelPermalink }}" rel="stylesheet">
+{{- end }}
+
+    {{- if and .IsPage (not .IsHome) (ne .RelPermalink "/about/") (ne .Section "projects") }}
+    {{- $article := resources.Get "sass/article.scss" | toCSS (dict "targetPath" "article.css") | minify | fingerprint }}
+    <link href="{{ $article.RelPermalink }}" rel="stylesheet">
+{{- end }}
+
+    {{- if .IsHome }}
+    {{- $portfolio := resources.Get "sass/portfolio.scss" | toCSS (dict "targetPath" "portfolio.css") | minify | fingerprint }}
+    <link href="{{ $portfolio.RelPermalink }}" rel="stylesheet">
+{{- end }}
+
+    {{- if strings.Contains .Content `class="chroma"` }}
+        {{- $code_syntax_highlight_css := resources.Get "code-highlight.css" | minify | fingerprint }}
+        <link href="{{ $code_syntax_highlight_css.RelPermalink }}" rel="stylesheet">
+    {{- end }}
+
 
     {{/* Favicons */}}
     <link rel="apple-touch-icon" sizes="180x180" href="{{ (resources.Get "icons/apple-touch-icon.png").RelPermalink }}">
