@@ -124,6 +124,30 @@
 
         </section>
 
+        <!-- STATS STRIP -->
+        {{ $posts := where .Site.RegularPages "Section" "posts" }}
+        <section class="stats-section reveal" aria-label="Career highlights">
+            <div class="stat-item">
+                <span class="stat-value"><span class="stat-number" data-count="112">112</span>+</span>
+                <span class="stat-label">HPE servers managed</span>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-value"><span class="stat-number" data-count="4">4</span></span>
+                <span class="stat-label">Years in infrastructure</span>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-value"><span class="stat-number" data-count="3">3</span></span>
+                <span class="stat-label">Years in production ops</span>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-value"><span class="stat-number" data-count="{{ len $posts }}">{{ len $posts }}</span></span>
+                <span class="stat-label">Technical articles</span>
+            </div>
+        </section>
+
         <!-- TECH STACK -->
         <section class="tech-section">
 
@@ -132,9 +156,37 @@
                 TECHNOLOGIES I WORK WITH
             </div>
 
+            {{/* "icon" = file di assets/tech-icons/<icon>.svg (Simple Icons, CC0).
+                 "mono" = monogram untuk brand yang nggak punya logo di paket itu. */}}
+            {{ $tech := slice
+                (dict "name" "Linux" "icon" "linux")
+                (dict "name" "Red Hat Enterprise Linux" "icon" "redhat")
+                (dict "name" "Ubuntu" "icon" "ubuntu")
+                (dict "name" "HPE OneView" "mono" "HPE")
+                (dict "name" "Zabbix" "mono" "Z")
+                (dict "name" "Grafana" "icon" "grafana")
+                (dict "name" "Prometheus" "icon" "prometheus")
+                (dict "name" "ELK Stack" "icon" "elasticsearch")
+                (dict "name" "Wazuh" "mono" "W")
+                (dict "name" "Docker" "icon" "docker")
+                (dict "name" "VMware" "icon" "vmware")
+                (dict "name" "Git" "icon" "git")
+                (dict "name" "GitLab" "icon" "gitlab")
+            }}
+
             <div class="tech-list reveal">
-                {{ range slice "Linux" "Red Hat Enterprise Linux" "Docker" "Zabbix" "Grafana" "Prometheus" "VMware" "Git" }}
-                    <span class="tech-item">{{ . }}</span>
+                {{ range $tech }}
+                    {{ $item := . }}
+                    <span class="tech-item">
+                        {{ if $item.icon }}
+                            {{ with resources.Get (printf "tech-icons/%s.svg" $item.icon) }}
+                                <span class="tech-icon" aria-hidden="true">{{ .Content | replaceRE "<title>.*?</title>" "" | safeHTML }}</span>
+                            {{ end }}
+                        {{ else }}
+                            <span class="tech-icon tech-icon--mono" aria-hidden="true">{{ $item.mono }}</span>
+                        {{ end }}
+                        {{ $item.name }}
+                    </span>
                 {{ end }}
             </div>
 
@@ -196,13 +248,77 @@
 
         </section>
 
+        <!-- FEATURED PROJECTS -->
+        {{ $projects := where .Site.RegularPages "Section" "projects" }}
+        {{ if $projects }}
+        <section class="projects-section">
+
+            <div class="section-heading reveal">
+                <div>
+                    <div class="section-label">
+                        <span>03</span>
+                        SELECTED WORK
+                    </div>
+
+                    <h2>Featured Projects.</h2>
+                </div>
+
+                <a href="{{ "projects/" | relURL }}" class="text-link">
+                    View all projects ↗
+                </a>
+            </div>
+
+            <div class="featured-projects">
+
+                {{ range first 3 ($projects.ByDate.Reverse) }}
+                    {{ $project := . }}
+
+                    <a href="{{ .RelPermalink }}" class="featured-project reveal">
+
+                        {{ with .Params.thumbnail }}
+                        <div class="featured-project-media">
+                            <img src="{{ . | relURL }}" alt="{{ $project.Title }} preview" loading="lazy">
+                        </div>
+                        {{ end }}
+
+                        <div class="featured-project-body">
+
+                            {{ with .Params.project_type }}
+                            <span class="featured-project-type">{{ . }}</span>
+                            {{ end }}
+
+                            <h3>{{ .Title }}</h3>
+
+                            <p>{{ .Description }}</p>
+
+                            {{ with .Params.tech_stack }}
+                            <div class="featured-project-stack">
+                                {{ range . }}<span>{{ . }}</span>{{ end }}
+                            </div>
+                            {{ end }}
+
+                            <span class="featured-project-link">
+                                Explore project →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                {{ end }}
+
+            </div>
+
+        </section>
+        {{ end }}
+
         <!-- LATEST ARTICLES -->
         <section class="articles-section">
 
             <div class="section-heading">
                 <div>
                     <div class="section-label">
-                        <span>03</span>
+                        <span>04</span>
                         KNOWLEDGE SHARING
                     </div>
 

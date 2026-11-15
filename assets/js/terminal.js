@@ -133,3 +133,64 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+
+/* =================================
+   STATS STRIP - COUNT UP
+   Angka di HTML sudah nilai akhir (aman tanpa JS).
+   Animasi hanya jalan kalau motion diizinkan.
+================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const numbers = document.querySelectorAll(".stat-number[data-count]");
+
+    if (!numbers.length) return;
+
+    if (
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        !("IntersectionObserver" in window)
+    ) {
+        return;
+    }
+
+    const duration = 1200;
+
+    // easeOutCubic
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+
+    function countUp(element) {
+        const target = parseInt(element.dataset.count, 10);
+
+        if (Number.isNaN(target)) return;
+
+        const start = performance.now();
+
+        function tick(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            element.textContent = Math.round(target * ease(progress));
+
+            if (progress < 1) requestAnimationFrame(tick);
+        }
+
+        requestAnimationFrame(tick);
+    }
+
+    const observer = new IntersectionObserver(
+        (entries, obs) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                countUp(entry.target);
+                obs.unobserve(entry.target);
+            });
+        },
+        { threshold: 0.6 }
+    );
+
+    numbers.forEach(element => {
+        element.textContent = "0";
+        observer.observe(element);
+    });
+
+});
