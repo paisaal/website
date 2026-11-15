@@ -12,18 +12,13 @@ tags: ["monitoring", "zabbix", "grafana", "devops", "sysadmin", "linux", "ubuntu
 
 ## Introduction
 
-In this project, we are going to build a complete monitoring system using Zabbix and Grafana, deployed across three separate virtual machines (VMs). Each VM plays a specific role in the monitoring architecture:
+In this project, I built a centralized infrastructure monitoring system using Zabbix and Grafana across three separate virtual machines (VMs). Each VM has a dedicated role in the monitoring architecture:
 
-- VM1 – Zabbix Server + Nginx →
-This VM serves as the main monitoring hub by running the Zabbix Server. Additionally, Nginx is installed as the web server to provide web access to the Zabbix dashboard. All monitoring data collected from agents and hosts is processed and managed here.
+- **VM1 – Zabbix Server:** Acts as the central monitoring server, running Zabbix Server, MariaDB, and Nginx. It processes monitoring data and provides the Zabbix frontend and API.
+- **VM2 – Zabbix Agent (Monitored Host):** Runs Zabbix Agent to collect system metrics such as CPU usage, memory, disk activity, and network performance. The agent communicates with the Zabbix Server using passive and active checks.
+- **VM3 – Grafana Server:** Runs Grafana with the Zabbix plugin. It connects to the Zabbix Server through the Zabbix API to retrieve and visualize monitoring data.
 
-- VM2 – Zabbix Agent (Client Host) → 
-This VM acts as a monitored client host, where the Zabbix Agent is installed. The agent collects performance metrics such as CPU usage, memory, disk I/O, and network activity, then sends this data to the Zabbix Server (VM1). These metrics can later be visualized in Grafana (VM3).
-
-- VM3 – Grafana Server →
-This VM runs Grafana, a powerful visualization and analytics platform. Grafana connects to the Zabbix database and allows us to create interactive dashboards, charts, and alerts, making monitoring insights more visual and user-friendly.
-
-With this architecture, you will have a distributed and modular monitoring system: Zabbix as the data collector and Grafana as the visualization layer. This setup ensures scalability, flexibility, and a modern monitoring experience.  
+The lab uses a distributed architecture where Zabbix handles metric collection and monitoring, while Grafana provides dashboard visualization. I successfully integrated Grafana with Zabbix and displayed monitoring metrics from both VM1 and VM2.
 
 ---
 
@@ -97,56 +92,72 @@ DBHost=localhost
 
 ---
 
-##### 5. Permissions & PID Directory
-Zabbix may fail to start if the PID folder does not exist:
+##### 5. Troubleshoot Zabbix Runtime Directory
+
+If Zabbix Server fails to start because its runtime directory is missing, check the service logs first:
+
 {{< highlight bash >}}
-sudo mkdir -p /run/zabbix
-sudo chown zabbix:zabbix /run/zabbix
-sudo chmod 755 /run/zabbix
+sudo journalctl -u zabbix-server -n 50 --no-pager
 {{< /highlight >}}
+
+Check whether the runtime directory exists:
+
+{{< highlight bash >}}
+ls -ld /run/zabbix
+{{< /highlight >}}
+
+If the directory is missing, investigate the Zabbix systemd service configuration before creating it manually.
 
 ##### 6. Configure Nginx for Zabbix Frontend
-Edit the default Zabbix Nginx config:
-{{< highlight bash >}}
+
+Edit the default Zabbix Nginx configuration:
+
+```bash
 sudo nano /etc/zabbix/nginx.conf
-{{< /highlight >}}
-Adjust it to match your setup:
-{{< highlight nginx >}}
-server {
-    listen       80;
-    server_name  <IP_VM1>;
+```
 
-    root /usr/share/zabbix;
-    index index.php;
+Uncomment and adjust the `listen` and `server_name` directives to match your environment:
 
-    location / {
-        try_files $uri $uri/ =404;
-    }
+```nginx
+listen 80;
+server_name 10.10.10.11;
+```
 
-    location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php8.1-fpm.sock;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include fastcgi_params;
-    }
-}
-{{< /highlight >}}
-Enable the configuration:
-{{< highlight bash >}}
-sudo ln -s /etc/zabbix/nginx.conf /etc/nginx/conf.d/
-rm /etc/nginx/conf.d/zabbix.conf
-{{< /highlight >}}
-Allow port
-{{< highlight bash >}}
-sudo ufw enable
+Keep the remaining package-provided configuration unchanged.
+
+Enable the Zabbix Nginx configuration:
+
+```bash
+sudo ln -s /etc/zabbix/nginx.conf /etc/nginx/conf.d/zabbix.conf
+```
+
+If the default Nginx site conflicts with the Zabbix frontend on port 80, disable the conflicting site.
+
+Validate the Nginx configuration and start the service:
+
+```bash
+sudo nginx -t
+sudo systemctl restart nginx
+sudo systemctl enable nginx
+```
+
+##### 7. Configure Firewall for Zabbix Server
+
+Allow the required ports for SSH access, Zabbix frontend, and Zabbix Server communication.
+
+```bash
+sudo ufw allow OpenSSH
 sudo ufw allow 80/tcp
 sudo ufw allow 10051/tcp
+sudo ufw enable
 sudo ufw status
-{{< /highlight >}}
+```
 
----
+- **TCP 22:** SSH access.
+- **TCP 80:** Zabbix frontend and API access.
+- **TCP 10051:** Zabbix Server communication, including active agent checks.
 
-##### 7. Configure php.ini
+##### 8. Configure php.ini
 Edit with sed:
 {{< highlight bash >}}
 sudo sed -i "s/^post_max_size = .*/post_max_size = 32M/" /etc/php/8.1/fpm/php.ini
@@ -155,7 +166,7 @@ sudo sed -i "s/^max_input_time = .*/max_input_time = 300/" /etc/php/8.1/fpm/php.
 sudo sed -i "s/^;date.timezone =.*/date.timezone = Asia\/Jakarta/" /etc/php/8.1/fpm/php.ini
 {{< /highlight >}}
 
-##### 8. Start & Enable Services
+##### 9. Start & Enable Services
 Restart and enable Zabbix, Nginx, and PHP:
 {{< highlight bash >}}
 sudo systemctl restart zabbix-server zabbix-agent nginx php8.1-fpm
@@ -173,7 +184,7 @@ sudo journalctl -xeu zabbix-server
 - zabbix_server.conf is correct
 - /run/zabbix folder exists and is owned by zabbix
 
-##### 9. Access Web UI
+##### 10. Access Web UI
 
 Open your browser and go to:  
 `http://<IP_VM1>`
@@ -221,10 +232,24 @@ The wizard writes config into:
 
 ![compose](./Images/zfinish.png)
 
+
+##### Security Note: Secure Your Monitoring Environment
+
+For security reasons, change all default credentials immediately after the first login.
+
+- **Zabbix:** Change the default `Admin` password (`zabbix`).
+- **Grafana:** Change the default `admin` password (`admin`).
+- **Database:** Use a strong, unique password for the Zabbix database user.
+- **API Access:** For Grafana integration, consider creating a dedicated Zabbix API account with read-only permissions to the required hosts and monitoring data instead of using the default administrator account.
+- **Network Security:** Restrict access to monitoring services through firewall rules and network segmentation. In production environments, allow access only from trusted systems.
+
+These are recommended security practices for this lab environment.
+
+
 ---
 
-##### 10. Zabbix API Setup
-Enable and test the Zabbix API on VM1 so that it can be accessed by external applications like Grafana.
+##### 11. Zabbix API Setup
+Enable and test the Zabbix API on VM1 so that external applications such as Grafana can access it.
 - **1. Check Services.** 
    {{< highlight bash >}}
    sudo systemctl status zabbix-server
@@ -233,25 +258,26 @@ Enable and test the Zabbix API on VM1 so that it can be accessed by external app
    {{< /highlight >}}
    
 - **2. Test API Endpoint**
-   
-   Check Zabbix API version:
-   {{< highlight bash >}}
-   curl -X POST -H "Content-Type: application/json-rpc" \
-   -d '{
+
+  Check the Zabbix API version:
+
+  {{< highlight bash >}}
+curl -X POST \
+-H "Content-Type: application/json-rpc" \
+-d '{
   "jsonrpc": "2.0",
   "method": "apiinfo.version",
   "params": [],
   "id": 1
-   }' \
-http://192.168.x.x/api_jsonrpc.php
+}' \
+http://10.10.10.11/api_jsonrpc.php
+  {{< /highlight >}}
 
+  Expected output (example):
 
-   {{< /highlight >}}
-   Expected output (example):
+  ```json
+  {"jsonrpc":"2.0","result":"7.0.x","id":1}
 
-   **{"jsonrpc":"2.0","result":"7.0.17","id":1}**
-
-   ![compose](./Images/api.png)
 ##### ✅ VM1 Setup Completed
 
 At this stage, **VM1 (Zabbix Server)** is fully configured and running:
@@ -259,14 +285,14 @@ At this stage, **VM1 (Zabbix Server)** is fully configured and running:
 - **Zabbix Server** is active and connected to the database  
 - **Nginx** is configured as the frontend webserver  
 - **Zabbix Dashboard** is accessible and login works  
-- **Zabbix API** so that it can be accessed by grafana
+- **Zabbix API** is enabled and accessible to Grafana through the API endpoint.
 
 ##### Next Step
 Proceed to configure **VM2 (VM-Client)**. The Zabbix Agent sends system metrics to VM1.
 
 ---
 
-## 🔹 VM2 – Zabbix Agent (Client) . 
+## 🔹 VM2 – Zabbix Agent (Client)
 
 **Purpose:**  
 VM2 acts as the **monitored client**. Zabbix Agent will be installed on VM2 so that CPU, RAM, Disk, Network, etc. metrics can be sent to VM1 (Zabbix Server) → then visualized in Grafana (VM3).
@@ -292,26 +318,39 @@ sudo apt install zabbix-agent -y
 {{< /highlight >}}
 
 ##### 3. Configure Zabbix Agent
-Edit the agent configuration file:
-{{< highlight bash >}}
+Edit the Zabbix Agent configuration file:
+
+```bash
 sudo nano /etc/zabbix/zabbix_agentd.conf
-{{< /highlight >}}
+```
+
 Update the following parameters:
-   {{< highlight nginx >}}
-   -# IP VM1 (Zabbix Server)
-   Server=IP_VM1
-   ServerActive=IP_VM1
-   -# Hostname unik untuk VM2
-   Hostname=VM2-Client
-   {{< /highlight >}}
-Save and exit.
+
+```ini
+# IP address of VM1 (Zabbix Server)
+Server=10.10.10.11
+
+# Active checks destination
+ServerActive=10.10.10.11
+
+# Unique hostname for VM2
+Hostname=VM2-Client
+```
 
 ##### 4. Configure Firewall
-Allow Zabbix Agent port (10050/tcp):
-{{< highlight bash >}}
-sudo ufw enable
+
+Allow SSH access and the port used by Zabbix Server to communicate with the agent.
+
+```bash
+sudo ufw allow OpenSSH
 sudo ufw allow 10050/tcp
-{{< /highlight >}}
+sudo ufw enable
+sudo ufw status
+```
+
+- **TCP 22:** SSH access.
+- **TCP 10050:** Zabbix Agent passive checks.
+
 
 ##### 5. Start & Enable Agent
 Restart and enable the agent service:
@@ -331,7 +370,7 @@ Login to Zabbix Web UI on VM1 → http://<IP_VM1>
    Fill in:
    - Hostname: VM2-Client (must match Hostname in agent config)
    - Group: Linux servers & Zabbix servers
-   - interface: Using Agent & IP of VM2 (ex: 192.168.1.30)
+   - interface: Using Agent & IP of VM2 (ex: 10.10.10.21)
 - Go to Templates → Select
    - Click Template/Operating System
    - Choose Template OS Linux by Zabbix agent
@@ -372,29 +411,65 @@ sudo apt update && sudo apt upgrade -y
 {{< /highlight >}}
 
 ##### 2. Install Grafana
-Download and install the latest stable version:
-{{< highlight bash >}}
-sudo apt install -y apt-transport-https software-properties-common
+
+Install the required dependencies:
+
+```bash
+sudo apt-get install -y apt-transport-https software-properties-common wget
+```
+
+Create the APT keyrings directory and download the Grafana GPG key:
+
+```bash
 sudo mkdir -p /etc/apt/keyrings/
-wget -q -O - https://packages.grafana.com/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/grafana.gpg
-echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://packages.grafana.com/oss/deb stable main" | sudo tee /etc/apt/sources.list.d/grafana.list
+sudo wget -O /etc/apt/keyrings/grafana.asc https://apt.grafana.com/gpg-full.key
+sudo chmod 644 /etc/apt/keyrings/grafana.asc
+```
+
+Add the Grafana stable repository:
+
+```bash
+echo "deb [signed-by=/etc/apt/keyrings/grafana.asc] https://apt.grafana.com stable main" | sudo tee /etc/apt/sources.list.d/grafana.list
+```
+
+Update the package list and install Grafana OSS:
+
+```bash
 sudo apt update
-sudo apt install grafana -y
-{{< /highlight >}}
+sudo apt install -y grafana
+```
 
 ##### 3. Enable & Start Grafana
-Open Grafana port (3000), enable service, and start:
-{{< highlight bash >}}
-sudo ufw allow 3000/tcp
+
+Enable and start the Grafana service:
+
+```bash
 sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
-{{< /highlight >}}
-Check service status:
-{{< highlight bash >}}
-systemctl status grafana-server
-{{< /highlight >}}
+```
 
-##### 4. Install Zabbix Plugin for Grafana
+Check the service status:
+
+```bash
+systemctl status grafana-server
+```
+
+##### 4. Configure Firewall for Grafana
+
+Allow SSH access and the port used to access the Grafana web interface:
+
+```bash
+sudo ufw allow OpenSSH
+sudo ufw allow 3000/tcp
+sudo ufw enable
+sudo ufw status
+```
+
+- **TCP 22:** SSH access.
+- **TCP 3000:** Grafana web interface.
+
+
+##### 5. Install Zabbix Plugin for Grafana
 To integrate Zabbix with Grafana, install the official plugin:
 {{< highlight bash >}}
 sudo grafana-cli plugins install alexanderzobnin-zabbix-app
@@ -404,7 +479,7 @@ Restart Grafana service:
 sudo systemctl restart grafana-server
 {{< /highlight >}}
 
-##### 5. Login to Grafana
+##### 6. Login to Grafana
 Open your browser and go to:  
 `http://<IP_VM3>:3000`
 
@@ -419,32 +494,35 @@ Password: admin
 > ⚠️ On the first login, Grafana will force you to change the default admin password. 
 
 - **1. Open Zabbix Plugin**
-   - Click the **gear ⚙️ (Configuration)** menu on the left sidebar.  
-   - Select **Administrator → Plugin and data → Plugins**.  
-   - Search **Zabbix** & Click **enable**.
+   - Open Grafana and navigate to Administration → Plugins and data → Plugins.
+   - Search for Zabbix.
+   - Open the Zabbix plugin and make sure it is installed and enabled.
 
    ![compose](./Images/pluginenable.png)
 
 - **2. Open Data Sources Menu**
-   - Click the **gear ⚙️ (Connection)** menu on the left sidebar.  
-   - Select **Data Sources**.  
-   - Click **Add data source**.
-   - Search for **Zabbix** (the plugin installed in step 5).  
-   - Click **Zabbix** → a configuration form will appear.
+   - Navigate to Connections → Data sources.
+   - Click Add data source.
+   - Search for Zabbix
+   - Select Zabbix to open its configuration page.
 
    ![compose](./Images/zabcon.png)
 
 - **3. Configure API Connection**
    Fill in the details to connect Grafana with Zabbix Server (VM1):
    - **URL**   
-    `http://<IP_VM1>/api_jsonrpc.php`  
+    `http://10.10.10.11/api_jsonrpc.php`
    - **Access** → Select **Server** (safer, requests are made from Grafana server to Zabbix, not from user browser).
-- **4. Enter Zabbix Credentials**
-   In **Zabbix API details** section:
-   - **Username**:  
-   `Admin`
-   - **Password**:  
-   `zabbix` (default, unless you changed it in VM1 setup).
+
+- **4. Enter Zabbix API Credentials**
+
+  Enter the credentials of a Zabbix user authorized to access the monitoring data required by Grafana.
+
+  - **Username:** Zabbix username.
+  - **Password:** Password configured for that account.
+
+   For better security, use a dedicated Zabbix API account instead of the default administrator account. Grant it read-only access to the required host groups, hosts, and monitoring data that Grafana needs to query.
+
 - **5. Advanced Options (Optional)**
    - **Trends** → enable this if you want Grafana to query aggregated trend data (faster for long time ranges).  
    - **Cache TTL** → configure caching for faster query response.
@@ -456,7 +534,7 @@ Password: admin
    ![compose](./Images/confinish.png)
 
 
-##### 6. Import Zabbix Dashboards into Grafana
+##### 7. Import Zabbix Dashboards into Grafana
 Grafana + Zabbix plugin comes with prebuilt dashboards, but you can also import templates from Grafana.com Dashboards
 
 Recommended Templates for Full Monitoring:
@@ -471,56 +549,22 @@ Result:
 
 ![compose](./Images/vm2-client.png)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
 ---
 
-## 🔹 Conclusion  
+## Conclusion
 
-✅ Summary (Flow from Scratch)
+### Summary: Building a Centralized Monitoring System
 
-- VM1 (Zabbix Server) – Install Zabbix Server + Web + DB.
-- VM2 (Zabbix Agent) – Install Agent, configure to send metrics to VM1.
-- VM3 (Grafana) – Install Grafana, enable firewall, and start service.
-- Install Zabbix Plugin in Grafana.
-- Add Zabbix as Data Source in Grafana (via API).
-- Import Dashboards from Grafana.com (using IDs above).
+In this project, I successfully built a centralized infrastructure monitoring environment using three virtual machines:
 
-Enjoy full monitoring visualization 🎉 
+- **VM1 – Zabbix Server:** Deployed Zabbix Server with MariaDB and Nginx to handle monitoring data and provide the web frontend and API.
+- **VM2 – Monitored Linux Host:** Installed and configured Zabbix Agent to collect and provide system metrics to the Zabbix Server.
+- **VM3 – Grafana Server:** Deployed Grafana, configured firewall rules, and enabled the Grafana service.
+
+After completing the deployment, I integrated Zabbix with Grafana through API connectivity, installed and enabled the Zabbix plugin, and imported monitoring dashboards.
+
+The resulting dashboards successfully visualized infrastructure metrics from both VM1 and VM2, including CPU, memory, disk, and network performance.
+
+Through this hands-on lab, I gained practical experience in Linux system administration, network configuration, firewall management, infrastructure monitoring, and dashboard visualization.
+
+This project strengthened my understanding of centralized monitoring architecture and the integration of monitoring tools in a Linux environment.
