@@ -28,11 +28,7 @@ tags: ["infrastructure", "monitoring", "zabbix", "grafana", "linux", "sysadmin"]
 
 ## Project Overview
 
-This project demonstrates the implementation of a centralized infrastructure monitoring environment using Zabbix and Grafana.
-
-The monitoring stack was deployed across three separate virtual machines running Ubuntu Server 22.04 LTS. Zabbix collects infrastructure metrics from monitored Linux hosts, while Grafana provides a centralized visualization layer through the Zabbix API integration.
-
-The lab was built and tested using VMware Workstation.
+This project was implemented and tested in a three-VM environment using VMware Workstation. The monitoring setup successfully monitored two Linux hosts through Zabbix and visualized infrastructure metrics using Grafana. Although the lab environment is no longer active, its architecture, implementation details, and dashboard evidence are documented as a completed hands-on project.
 
 ## Infrastructure Architecture
 
@@ -110,10 +106,28 @@ The monitoring environment consists of three virtual machines running on VMware 
 
 Each virtual machine uses two network adapters:
 
-- **VMnet8 (NAT):** external network connectivity.
-- **Host-only:** internal communication between the virtual machines and the host.
+- **VMnet8 (NAT):** Provides external network connectivity for package installation and system updates.
+- **Host-only:** Provides isolated internal communication between the virtual machines and the host.
 
-The internal monitoring network uses the `10.10.10.0/24` network.
+The internal monitoring network uses the `10.10.10.0/24` subnet.
+
+**Host-only IP Addressing:**
+
+| Virtual Machine | Role | IP Address |
+|---|---|---|
+| VM1 | Zabbix Server | `10.10.10.11` |
+| VM2 | Zabbix Agent | `10.10.10.21` |
+| VM3 | Grafana Server | `10.10.10.31` |
+
+**Monitoring Communication:**
+
+| Source | Destination | Port | Purpose |
+|---|---|---|---|
+| VM2 | VM1 | TCP 10051 | Zabbix Agent active checks |
+| VM1 | VM2 | TCP 10050 | Zabbix Agent passive checks |
+| VM3 | VM1 | TCP 80 | Zabbix API access |
+
+The required ports depend on the configured communication mode and service configuration.
 
 ## Technology Stack
 
@@ -125,7 +139,6 @@ The internal monitoring network uses the `10.10.10.0/24` network.
 - Nginx
 - Grafana
 - Zabbix API Integration
-
 
 ## Implementation Highlights
 
@@ -143,8 +156,8 @@ The project was implemented in three stages, covering monitoring server deployme
     </p>
     <ul>
       <li>Installed and configured Zabbix Server</li>
-      <li>Prepared MariaDB database backend</li>
-      <li>Configured Nginx web frontend</li>
+      <li>Created and configured the MariaDB database</li>
+      <li>Configured Nginx for Zabbix web access</li>
     </ul>
   </div>
 
@@ -154,11 +167,11 @@ The project was implemented in three stages, covering monitoring server deployme
     <h3>Remote Host Monitoring</h3>
     <p>
       Configured a separate Ubuntu Linux VM as a monitoring target
-      and connected it to the centralized Zabbix server.
+      and connected it to the centralized Zabbix server using Zabbix Agent.
     </p>
     <ul>
       <li>Installed and configured Zabbix Agent</li>
-      <li>Registered the remote host</li>
+      <li>Registered the remote Linux host in Zabbix</li>
       <li>Applied Linux monitoring templates</li>
     </ul>
   </div>
@@ -168,13 +181,13 @@ The project was implemented in three stages, covering monitoring server deployme
     <span class="implementation-label">DATA VISUALIZATION</span>
     <h3>Grafana Integration</h3>
     <p>
-      Deployed Grafana on a separate VM and integrated it
-      with Zabbix through the Zabbix API.
+      Deployed Grafana on a separate VM and connected it
+      to Zabbix through API integration for monitoring data visualization.
     </p>
     <ul>
-      <li>Installed Grafana Zabbix plugin</li>
-      <li>Configured Zabbix API data source</li>
-      <li>Imported monitoring dashboards</li>
+      <li>Installed the Grafana Zabbix plugin</li>
+      <li>Configured the Zabbix API data source</li>
+      <li>Imported and configured monitoring dashboards</li>
     </ul>
   </div>
 
@@ -230,7 +243,7 @@ The monitoring dashboards provide visibility into the health and resource utiliz
       decoding="async">
     <figcaption>
       <strong>Integration Verification</strong>
-      <span>Successful connection between monitoring components</span>
+      <span>Successful connection to the Zabbix API, confirmed by Grafana.</span>
     </figcaption>
   </figure>
 
@@ -238,11 +251,12 @@ The monitoring dashboards provide visibility into the health and resource utiliz
 
 ## Key Takeaways
 
-- Built a distributed monitoring environment across three virtual machines.
-- Configured centralized monitoring for multiple Linux hosts.
-- Integrated Zabbix with Grafana through API connectivity.
-- Worked with Linux services, database configuration, firewall rules, and network connectivity.
-- Gained practical experience in infrastructure monitoring and dashboard visualization.
+- Designed and deployed a three-VM infrastructure monitoring environment using VMware Workstation.
+- Configured Zabbix to monitor two Linux hosts from a centralized monitoring server.
+- Integrated Grafana with Zabbix through API connectivity for infrastructure visualization.
+- Configured Linux services, MariaDB, Nginx, firewall rules, and internal network communication.
+- Built monitoring dashboards to visualize CPU, memory, disk, and network utilization.
+- Documented the architecture, implementation process, and monitoring results as a completed hands-on lab project.
 
 
 ## Technical Documentation
