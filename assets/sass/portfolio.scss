@@ -371,6 +371,49 @@ body > main.portfolio-wrapper {
 }
 
 
+//////////////// 4b. STATS STRIP ////////////////
+
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 70px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px 22px;
+    border: 1px solid $portfolio-border;
+    border-radius: 10px;
+    background: $portfolio-surface;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        border-color: rgba($portfolio-green, 0.55);
+    }
+}
+
+.stat-value {
+    color: $portfolio-green;
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -2px;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+    color: $portfolio-muted;
+    font-family: $portfolio-mono;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+
 //////////////// 5. TECH STACK ////////////////
 
 .tech-section {
@@ -388,6 +431,9 @@ body > main.portfolio-wrapper {
 }
 
 .tech-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
     padding: 9px 15px;
     border: 1px solid $portfolio-border;
     border-radius: 6px;
@@ -402,6 +448,36 @@ body > main.portfolio-wrapper {
         border-color: $portfolio-green;
         transform: translateY(-3px);
     }
+}
+
+.tech-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+
+    svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
+    }
+}
+
+// Monogram untuk brand tanpa logo (HPE, Zabbix, Wazuh)
+.tech-icon--mono {
+    width: auto;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 3px;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    font-size: 8px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
 }
 
 
@@ -462,6 +538,128 @@ body > main.portfolio-wrapper {
     font-family: $portfolio-mono;
     font-size: 75px;
     pointer-events: none;
+}
+
+
+//////////////// 6b. FEATURED PROJECTS ////////////////
+
+.projects-section {
+    margin-bottom: 115px;
+}
+
+.featured-projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.featured-project {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid $portfolio-border;
+    border-radius: 10px;
+    background: $portfolio-surface;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        border-color: $portfolio-green;
+        background: $portfolio-card;
+
+        .featured-project-media img {
+            transform: scale(1.03);
+        }
+    }
+
+    // Project terbaru jadi kartu utama selebar grid
+    &:first-child {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+
+        .featured-project-body {
+            justify-content: center;
+            padding: 38px;
+        }
+
+        .featured-project-body h3 {
+            font-size: 24px;
+        }
+
+        .featured-project-body p {
+            font-size: 13px;
+        }
+    }
+}
+
+.featured-project-media {
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    // sama dengan thumbnail di halaman /projects/ (SVG berlatar terang)
+    background: #E8EEE8;
+
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: transform 0.35s ease;
+    }
+}
+
+.featured-project-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 26px;
+
+    h3 {
+        color: $portfolio-text;
+        font-size: 18px;
+        line-height: 1.45;
+        margin: 12px 0;
+    }
+
+    p {
+        color: $portfolio-muted;
+        font-size: 12px;
+        line-height: 1.8;
+        margin: 0 0 18px;
+    }
+}
+
+.featured-project-type {
+    color: $portfolio-green;
+    font-family: $portfolio-mono;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.featured-project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+
+    span {
+        padding: 5px 9px;
+        border: 1px solid #304337;
+        border-radius: 6px;
+        color: #C5D1C8;
+        background: #1B2820;
+        font-family: $portfolio-mono;
+        font-size: 10px;
+    }
+}
+
+.featured-project-link {
+    margin-top: auto;
+    color: $portfolio-green;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 
@@ -553,6 +751,15 @@ body > main.portfolio-wrapper {
 .focus-card:nth-child(2), .article-card:nth-child(2) { --reveal-delay: 0.3s; }
 .focus-card:nth-child(3), .article-card:nth-child(3) { --reveal-delay: 0.5s; }
 
+.stat-item:nth-child(1) { --reveal-delay: 0.05s; }
+.stat-item:nth-child(2) { --reveal-delay: 0.15s; }
+.stat-item:nth-child(3) { --reveal-delay: 0.25s; }
+.stat-item:nth-child(4) { --reveal-delay: 0.35s; }
+
+.featured-project:nth-child(1) { --reveal-delay: 0.1s; }
+.featured-project:nth-child(2) { --reveal-delay: 0.25s; }
+.featured-project:nth-child(3) { --reveal-delay: 0.4s; }
+
 
 //////////////// 10. FOOTER (override theme Hugo) ////////////////
 
@@ -632,8 +839,23 @@ body footer {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+        margin-bottom: 55px;
+    }
+
+    // Kartu utama ditumpuk: gambar di atas, teks di bawah
+    .featured-project:first-child {
+        grid-template-columns: 1fr;
+
+        .featured-project-body {
+            padding: 26px;
+        }
+    }
+
     .tech-section,
-    .focus-section {
+    .focus-section,
+    .projects-section {
         margin-bottom: 80px;
     }
 
@@ -686,8 +908,13 @@ body footer {
     }
 
     .focus-grid,
-    .articles-grid {
+    .articles-grid,
+    .featured-projects {
         grid-template-columns: 1fr;
+    }
+
+    .stat-item {
+        padding: 18px 16px;
     }
 
     .focus-card {
@@ -704,7 +931,8 @@ body footer {
 
     // 1 kolom: tiap kartu muncul saat discroll, tanpa jeda tambahan
     .focus-card:nth-child(n),
-    .article-card:nth-child(n) {
+    .article-card:nth-child(n),
+    .featured-project:nth-child(n) {
         --reveal-delay: 0s;
     }
 }
@@ -848,6 +1076,56 @@ html.light {
 
     .focus-icon {
         color: rgba(40, 92, 53, 0.08);
+    }
+
+    // Stats strip
+    .stat-item {
+        background: $portfolio-light-surface;
+        border-color: $portfolio-light-border;
+
+        &:hover {
+            border-color: $portfolio-light-green;
+        }
+    }
+
+    .stat-value {
+        color: $portfolio-light-green;
+    }
+
+    .stat-label {
+        color: $portfolio-light-muted;
+    }
+
+    // Featured projects
+    .featured-project {
+        background: $portfolio-light-surface;
+        border-color: $portfolio-light-border;
+
+        &:hover {
+            background: $portfolio-light-card;
+            border-color: $portfolio-light-green;
+        }
+    }
+
+    .featured-project-body {
+        h3 {
+            color: $portfolio-light-text;
+        }
+
+        p {
+            color: $portfolio-light-muted;
+        }
+    }
+
+    .featured-project-type,
+    .featured-project-link {
+        color: $portfolio-light-green;
+    }
+
+    .featured-project-stack span {
+        color: #405447;
+        background: $portfolio-light-card;
+        border-color: $portfolio-light-border;
     }
 
     // Article cards
